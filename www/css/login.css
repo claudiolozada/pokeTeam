@@ -1,0 +1,177 @@
+/* --- Reseteo básico y Estilos Globales --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* Usamos la fuente pixelada si cargó, sino fallback */
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+}
+
+body {
+    /* Fondo rojo vibrante solicitado */
+    background-color: #e3350d; 
+    /* Centrado absoluto usando Flexbox */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ocupa todo el alto de la ventana */
+    padding: 20px;
+}
+
+/* --- Contenedor del Formulario (Estilo Pokédex) --- */
+.pokeform {
+    background-color: #f0f0f0; /* Fondo gris claro interior */
+    width: 100%;
+    max-width: 400px; /* Ancho máximo para que no se estire demasiado */
+    padding: 30px;
+    border: 6px solid #333; /* Borde grueso oscuro clásico */
+    border-radius: 20px; /* Esquinas redondeadas */
+    /* Sombra para dar efecto 3D/cómic */
+    box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* --- Cabecera del Formulario --- */
+.form-header {
+    text-align: center;
+    margin-bottom: 25px;
+    border-bottom: 4px solid #ccc;
+    padding-bottom: 15px;
+}
+
+.form-title {
+    font-size: 16px; /* Ajuste de tamaño para fuente pixel */
+    color: #333;
+    letter-spacing: 1px;
+}
+
+/* Lucesitas decorativas de Pokédex */
+.pokedex-lights {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.light {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid #333;
+}
+.light.red { background-color: #ff4136; }
+.light.yellow { background-color: #ffdc00; }
+.light.green { background-color: #2ecc40; }
+
+
+/* --- Estilos de los Campos de Entrada --- */
+.inputregis {
+    margin-bottom: 20px;
+}
+
+.inputregis label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 10px;
+    color: #555;
+    text-transform: uppercase;
+}
+
+.inputregis input {
+    width: 100%;
+    padding: 12px;
+    font-size: 10px; /* Ajuste para fuente pixel */
+    border: 3px solid #333;
+    border-radius: 8px;
+    background-color: white;
+    color: #333;
+    transition: all 0.2s;
+}
+
+/* Efecto al seleccionar el campo */
+.inputregis input:focus {
+    outline: none;
+    border-color: #30a7d7; /* Azul agua brillante */
+    box-shadow: 0 0 10px rgba(48, 167, 215, 0.5);
+}
+
+
+/* --- Botón estilo Poké Ball --- */
+.pokeform button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+
+    /* Degradado rojo y blanco tipo Poké Ball */
+    background: linear-gradient(180deg, #e3350d 50%, #ffffff 50%);
+    color: #000000; /* Texto oscuro para contraste en la parte blanca */
+    
+    
+    border: 4px solid #333;
+    border-radius: 30px;
+    text-transform: uppercase;
+    transition: transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 5px 0 #333; /* Sombra inferior para efecto botón presionado */
+    margin-top: 10px;
+}
+
+/* Icono central de la Poké Ball */
+.poke_icon {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 3px solid #333;
+    border-radius: 50%;
+    position: relative;
+}
+.poke_icon::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px; height: 8px;
+    background-color: #333;
+    border-radius: 50%;
+}
+
+/* Efectos del Botón */
+button:hover {
+    box-shadow: 0 3px 0 #333;
+    transform: translateY(2px);
+}
+
+button:active {
+    box-shadow: 0 0px 0 #333;
+    transform: translateY(5px);
+}
+
+
+/* --- Footer (No tienes cuenta?) --- */
+.form-footer {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 4px solid #ccc;
+    font-size: 9px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.form-footer a {
+    color: #30a7d7; /* Azul */
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+    color: #e3350d; /* Rojo al pasar el mouse */
+}

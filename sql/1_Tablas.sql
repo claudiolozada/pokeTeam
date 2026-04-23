@@ -1,0 +1,3 @@
+CREATE DATABASE poketeam;
+
+CREATE TABLE if NOT extist 

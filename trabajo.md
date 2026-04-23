@@ -1,0 +1,3 @@
+dia 1:
+hice el frontend del login...
+le di estilos para que tenga apariencia a pokemon pero aun no he creado las tablas de BBDD. por hoy solo toque lo visual
