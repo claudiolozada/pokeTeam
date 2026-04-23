@@ -1,0 +1,11 @@
+services:
+  poketeam:
+    build: .
+    container_name: poketeam
+    ports:
+      - "8080:80"
+    volumes:
+      - ./www:/var/www/html
+
+volumes:
+  db_data:
