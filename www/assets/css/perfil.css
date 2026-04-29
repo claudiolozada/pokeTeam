@@ -1,0 +1,674 @@
+/* --- Reseteo básico --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* --- Fondo general --- */
+body {
+    min-height: 100vh;
+    color: #fff;
+
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.18) 0 70px, transparent 72px),
+        radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.16) 0 120px, transparent 122px),
+        radial-gradient(circle at 75% 18%, rgba(255, 220, 0, 0.22) 0 55px, transparent 57px),
+        linear-gradient(135deg, #e3350d 0%, #c72808 45%, #8f1b08 100%);
+
+    background-attachment: fixed;
+}
+
+/* Cuadritos del fondo */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 2px, transparent 2px);
+
+    background-size: 45px 45px;
+}
+
+form {
+    margin: 0;
+}
+
+.boton-editar {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* --- Contenedor principal --- */
+.contenedor-perfil {
+    width: 100%;
+    min-height: calc(100vh - 75px);
+    padding: 28px 60px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Layout principal --- */
+.perfil {
+    width: 100%;
+    max-width: 1100px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    gap: 45px;
+}
+
+/* -------------------------------------------------- */
+/* TARJETA DEL AVATAR */
+/* -------------------------------------------------- */
+
+.tarjeta-avatar-perfil {
+    width: 100%;
+    min-height: 560px;
+
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(242, 242, 242, 0.96));
+
+    border: 5px solid #333;
+    border-radius: 26px;
+
+    padding: 24px;
+
+    box-shadow: 11px 11px 0 rgba(0, 0, 0, 0.28);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* Línea roja arriba */
+.tarjeta-avatar-perfil::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 10px;
+
+    background: linear-gradient(90deg, #c92c0c, #ff4a24, #c92c0c);
+}
+
+.cabecera-avatar-perfil {
+    width: 100%;
+    text-align: center;
+
+    padding-bottom: 18px;
+    border-bottom: 4px solid #333;
+
+    position: relative;
+    z-index: 1;
+}
+
+.cabecera-avatar-perfil h2,
+.cabecera-perfil h1 {
+    font-size: 25px;
+    color: #000000;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0 #a1a1a1;
+
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.cabecera-avatar-perfil p,
+.cabecera-perfil p {
+    font-size: 9px;
+    line-height: 1.9;
+    color: #222;
+    letter-spacing: 0.5px;
+}
+
+/* Zona donde vive el avatar grande */
+.zona-imagen-avatar {
+    width: 100%;
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    z-index: 1;
+}
+
+/* Avatar grande */
+.imagen-avatar-perfil {
+    width: 310px;
+    height: 360px;
+    object-fit: contain;
+
+    filter: drop-shadow(12px 12px 0 rgba(0, 0, 0, 0.20));
+}
+
+/* Botón cambiar avatar */
+.boton-cambiar-avatar {
+    width: 100%;
+
+    padding: 15px 20px;
+
+    background-color: #e3350d;
+    color: #ffffff;
+
+    border: 4px solid #333;
+    border-radius: 18px;
+
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 9px;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+
+    box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background-color 0.18s ease,
+        color 0.18s ease;
+
+    position: relative;
+    z-index: 1;
+}
+
+.boton-cambiar-avatar:hover {
+    transform: scale(1.04);
+    background-color: #ffffff;
+    color: #e3350d;
+    box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.4);
+}
+
+.boton-cambiar-avatar:active {
+    transform: scale(1.02);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* -------------------------------------------------- */
+/* PANEL DEL PERFIL */
+/* -------------------------------------------------- */
+
+.zona-panel-perfil {
+    width: 100%;
+    min-height: 560px;
+
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(242, 242, 242, 0.96));
+
+    border: 5px solid #333;
+    border-radius: 26px;
+
+    padding: 24px;
+
+    box-shadow: 11px 11px 0 rgba(0, 0, 0, 0.28);
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* Línea roja arriba del panel */
+.zona-panel-perfil::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 10px;
+
+    background: linear-gradient(90deg, #c92c0c, #ff4a24, #c92c0c);
+}
+
+/* Cabecera */
+.cabecera-perfil {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    padding-bottom: 18px;
+    border-bottom: 4px solid #333;
+
+    position: relative;
+    z-index: 1;
+}
+
+/* Foto pequeña sin borde ni círculo extra */
+.foto-perfil {
+    width: 105px;
+    height: 105px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: transparent;
+    border: none;
+    border-radius: 0;
+
+    box-shadow: none;
+
+    overflow: visible;
+}
+
+.foto-perfil img {
+    width: 105px;
+    height: 105px;
+    object-fit: contain;
+
+    filter: drop-shadow(6px 6px 0 rgba(0, 0, 0, 0.35));
+}
+
+/* --- Datos del perfil --- */
+.datos-perfil {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    position: relative;
+    z-index: 1;
+}
+
+/* Cada campo */
+.campo-perfil {
+    width: 100%;
+    min-height: 66px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    padding: 13px 16px 13px 20px;
+
+    background-color: #f3f3f3;
+
+    border: 4px solid #333;
+    border-left: 9px solid #e3350d;
+    border-radius: 18px;
+
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.25);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background-color 0.18s ease;
+}
+
+.campo-perfil:hover {
+    transform: scale(1.025);
+    background-color: #fff1ee;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.32);
+}
+
+/* Texto de cada campo */
+.info-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.titulo-campo {
+    width: fit-content;
+
+    font-size: 9px;
+    color: #111;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+
+    padding-bottom: 5px;
+    border-bottom: 3px solid #e3350d;
+}
+
+.valor-campo {
+    font-size: 12px;
+    color: #111;
+    line-height: 1.6;
+    letter-spacing: 0.4px;
+}
+
+/* Botón del lápiz */
+.boton-editar {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #ffffff;
+    color: #e3350d;
+
+    border: 4px solid #333;
+    border-radius: 13px;
+
+    text-decoration: none;
+    font-size: 19px;
+
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.32);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background-color 0.18s ease,
+        color 0.18s ease;
+}
+
+.boton-editar:hover {
+    transform: rotate(-8deg) scale(1.12);
+    background-color: #e3350d;
+    color: #ffffff;
+    box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.38);
+}
+
+.boton-editar:active {
+    transform: scale(1.02);
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.38);
+}
+
+/* --- Botones inferiores --- */
+.zona-acciones-perfil {
+    display: flex;
+    gap: 16px;
+    margin-top: auto;
+
+    position: relative;
+    z-index: 1;
+}
+
+.boton-volver,
+.boton-cerrar {
+    flex: 1;
+
+    padding: 14px 12px;
+
+    border: 4px solid #333;
+    border-radius: 17px;
+
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    font-size: 8px;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.32);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background-color 0.18s ease,
+        color 0.18s ease;
+}
+
+.boton-volver {
+    background-color: #ffffff;
+    color: #222;
+}
+
+.boton-cerrar {
+    background-color: #e3350d;
+    color: #ffffff;
+}
+
+.boton-volver:hover,
+.boton-cerrar:hover {
+    transform: scale(1.05);
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+.boton-volver:hover {
+    background-color: #fff1ee;
+    color: #e3350d;
+}
+
+.boton-cerrar:hover {
+    background-color: #b9270a;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+    .contenedor-perfil {
+        padding: 25px 22px;
+        align-items: flex-start;
+    }
+
+    .perfil {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        text-align: center;
+        align-items: center;
+        max-width: 620px;
+    }
+
+    .tarjeta-avatar-perfil,
+    .zona-panel-perfil {
+        min-height: auto;
+        padding: 20px;
+        border-radius: 22px;
+        gap: 20px;
+    }
+
+    .cabecera-avatar-perfil h2,
+    .cabecera-perfil h1 {
+        font-size: 15px;
+        -webkit-text-stroke: 1px #222;
+        text-shadow: 2px 2px 0 #e3350d;
+    }
+
+    .cabecera-avatar-perfil p,
+    .cabecera-perfil p {
+        font-size: 8px;
+        line-height: 1.8;
+    }
+
+    .imagen-avatar-perfil {
+        width: 250px;
+        height: 330px;
+    }
+
+    .cabecera-perfil {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .foto-perfil {
+        width: 95px;
+        height: 95px;
+    }
+
+    .foto-perfil img {
+        width: 95px;
+        height: 95px;
+    }
+
+    .campo-perfil {
+        min-height: 66px;
+        padding: 13px;
+        gap: 12px;
+        border-left: 7px solid #e3350d;
+    }
+
+    .titulo-campo {
+        font-size: 8px;
+        padding-bottom: 4px;
+        border-bottom: 3px solid #e3350d;
+    }
+
+    .valor-campo {
+        font-size: 10px;
+    }
+
+    .boton-editar {
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+    }
+
+    .zona-acciones-perfil {
+        flex-direction: column;
+    }
+
+    .boton-volver,
+    .boton-cerrar {
+        font-size: 8px;
+    }
+
+    .boton-cambiar-avatar {
+        font-size: 9px;
+        padding: 14px 19px;
+    }
+}
+
+/* INPUT INLINE */
+.input-editar {
+    display: none;
+    font-size: 12px;
+    padding: 6px 8px;
+    border: 3px solid #333;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #111;
+    width: 150px;
+    outline: none;
+}
+
+/* CUANDO ESTÁ EDITANDO */
+.campo-perfil.editando .texto {
+    display: none;
+}
+
+.campo-perfil.editando .input-editar {
+    display: block;
+}
+
+/* BOTÓN CAMBIO DE ESTADO */
+.boton-editar.enviando {
+    background-color: #e3350d;
+    color: #fff;
+}
+
+/* -------------------------- */
+/* INPUT EDITABLE */
+/* -------------------------- */
+
+.input-editar {
+    display: none;
+    font-size: 12px;
+    padding: 6px 8px;
+    border: 3px solid #333;
+    border-radius: 10px;
+    width: 160px;
+    background: #fff;
+    color: #111;
+    outline: none;
+}
+
+/* cuando editas */
+.campo-perfil.editando .texto {
+    display: none;
+}
+
+.campo-perfil.editando .input-editar {
+    display: block;
+}
+
+/* -------------------------- */
+/* BOTONES EDICIÓN */
+/* -------------------------- */
+
+.form-editar {
+    margin: 0;
+}
+
+.botones-edicion {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+/* botones base */
+.btn-editar,
+.btn-guardar,
+.btn-cancelar {
+    width: 40px;
+    height: 40px;
+
+    border: 3px solid #333;
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 16px;
+
+    background: #fff;
+
+    transition: 0.2s ease;
+}
+
+/* colores */
+.btn-editar {
+    color: #e3350d;
+}
+
+.btn-guardar {
+    color: #1c8f2e;
+}
+
+.btn-cancelar {
+    color: #555;
+}
+
+/* hover efectos */
+.btn-editar:hover {
+    background: #e3350d;
+    color: #fff;
+}
+
+.btn-guardar:hover {
+    background: #1c8f2e;
+    color: #fff;
+}
+
+.btn-cancelar:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* click feedback */
+.btn-editar:active,
+.btn-guardar:active,
+.btn-cancelar:active {
+    transform: scale(0.95);
+}

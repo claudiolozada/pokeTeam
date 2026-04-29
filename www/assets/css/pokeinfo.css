@@ -1,0 +1,866 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
+
+/* ----------------------------- */
+/* RESETEO */
+/* ----------------------------- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ----------------------------- */
+/* VARIABLES */
+/* ----------------------------- */
+
+:root {
+    --grass: #5FBD58;
+    --bug: #92BC2C;
+    --dark: #595761;
+    --dragon: #0C69C8;
+    --electric: #F2D94E;
+    --fairy: #EE90E6;
+    --fighting: #D3425F;
+    --fire: #f48e2f;
+    --flying: #A1BBEC;
+    --ghost: #5F6DBC;
+    --ground: #DA7C4D;
+    --ice: #75D0C1;
+    --normal: #A0A29F;
+    --poison: #B763CF;
+    --psychic: #ff2ca8;
+    --rock: #917b18;
+    --steel: #5695A3;
+    --water: #539DDF;
+
+    /* JavaScript cambia esta variable según el tipo principal */
+    --color-tipo-actual: #e3350d;
+}
+
+/* ----------------------------- */
+/* FONDO GENERAL POR TIPO */
+/* ----------------------------- */
+
+body {
+    min-height: 100vh;
+    color: #222;
+    font-family: "Jersey 25", sans-serif;
+
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.20) 0 75px, transparent 77px),
+        radial-gradient(circle at 85% 75%, rgba(0, 0, 0, 0.14) 0 125px, transparent 127px),
+        radial-gradient(circle at 75% 18%, rgba(255, 255, 255, 0.16) 0 60px, transparent 62px),
+        linear-gradient(135deg, var(--color-tipo-actual) 0%, var(--color-tipo-actual) 45%, rgba(0, 0, 0, 0.18) 100%);
+
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+/* Cuadritos encima del fondo */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.09) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.09) 2px, transparent 2px);
+
+    background-size: 45px 45px;
+}
+
+/* Capa suave para dar profundidad al color del tipo */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.10), rgba(0, 0, 0, 0.20));
+}
+
+/* ----------------------------- */
+/* PARTE SUPERIOR DEL POKÉMON */
+/* ----------------------------- */
+
+#pokemon-details {
+    width: 100%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+    padding: 28px 20px 0 20px;
+
+    text-align: center;
+
+    position: relative;
+    z-index: 5;
+}
+
+.btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.previousBtn,
+.nextBtn {
+    width: 46px;
+    height: 46px;
+
+    position: fixed;
+    z-index: 999;
+
+    border: 4px solid #202020;
+    outline: none;
+
+    background-color: #ffffff;
+    color: #202020;
+
+    cursor: pointer;
+    border-radius: 50%;
+
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.previousBtn {
+    left: 18px;
+}
+
+.nextBtn {
+    right: 18px;
+}
+
+.previousBtn:hover,
+.nextBtn:hover {
+    transform: scale(1.12);
+    background-color: #202020;
+    color: #ffffff;
+}
+
+.names {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 10px;
+    text-align: center;
+
+    position: relative;
+    z-index: 10;
+}
+
+.name {
+    font-size: 4.2em;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: #ffffff;
+
+    -webkit-text-stroke: 1.5px #ffffff;
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.423);
+
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.japaneseName {
+    font-size: 1.8em;
+    letter-spacing: 4px;
+    color: rgba(255, 255, 255, 0.50);
+
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    margin-top: -5px;
+
+    position: relative;
+    z-index: 8;
+}
+
+.image {
+    position: relative;
+    width: max-content;
+    margin: 0 auto;
+
+    transform: translateY(35px);
+}
+
+.image .imgFront {
+    width: 330px;
+    height: 330px;
+
+    position: relative;
+    z-index: 10;
+
+    object-fit: contain;
+
+    filter: drop-shadow(14px 14px 0 rgba(0, 0, 0, 0.25));
+}
+
+.imgBack {
+    position: absolute;
+
+    width: 330px;
+    height: 330px;
+
+    z-index: 1;
+    top: 0;
+    left: 0;
+
+    opacity: 0.20;
+    animation: rotate 5s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ----------------------------- */
+/* PANEL INFERIOR */
+/* ----------------------------- */
+
+.details {
+    width: 100%;
+    max-width: 1100px;
+
+    margin: -35px auto 40px auto;
+    padding: 95px 24px 24px 24px;
+
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.97), rgba(242, 242, 242, 0.97));
+
+    border: 5px solid #202020;
+    border-radius: 38px 38px 28px 28px;
+
+    box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.28);
+
+    position: relative;
+    z-index: 2;
+
+    overflow: hidden;
+}
+
+.details::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 14px;
+
+    background: linear-gradient(90deg, var(--color-tipo-actual), #ffffff, var(--color-tipo-actual));
+}
+
+/* ----------------------------- */
+/* PESTAÑAS */
+/* ----------------------------- */
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+
+    padding: 18px 10px 22px 10px;
+    margin-bottom: 24px;
+
+    border-bottom: 4px solid #202020;
+
+    position: relative;
+    z-index: 2;
+}
+
+.tabs span {
+    min-width: 150px;
+
+    padding: 12px 18px;
+
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.25em;
+
+    color: #202020;
+    background-color: #ffffff;
+
+    border: 4px solid #202020;
+    border-radius: 16px;
+
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.28);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.tabs span:hover {
+    transform: translateY(-4px) scale(1.05);
+    background-color: var(--color-tipo-actual);
+    color: #ffffff;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.35);
+}
+
+.tabs span.tab-activa {
+    background-color: #202020;
+    color: #ffffff;
+}
+
+/* ----------------------------- */
+/* CONTENIDO DE PESTAÑAS */
+/* ----------------------------- */
+
+[data-tab-info] {
+    display: none;
+}
+
+.active[data-tab-info] {
+    display: block;
+}
+
+#tab-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* ----------------------------- */
+/* RESUMEN */
+/* ----------------------------- */
+
+.overview {
+    text-align: center;
+}
+
+.overview p {
+    max-width: 850px;
+
+    margin: 0 auto 20px auto;
+    padding: 24px;
+
+    font-size: 1.35em;
+    line-height: 1.5;
+    text-align: center;
+
+    color: #202020;
+    background-color: #ffffff;
+
+    border: 4px solid #202020;
+    border-radius: 22px;
+
+    box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.22);
+}
+
+.genus {
+    display: inline-block;
+
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+
+    font-size: 1.2em;
+    color: var(--color-tipo-actual);
+
+    border-bottom: 3px solid #202020;
+}
+
+.heightWeight {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    width: max-content;
+    margin: 22px auto;
+    padding: 16px 36px;
+
+    font-size: 1.45em;
+    text-align: center;
+
+    background-color: #ffffff;
+
+    border: 4px solid #202020;
+    border-radius: 20px;
+
+    box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.22);
+}
+
+.types {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    margin: 20px 0;
+}
+
+/* Contenedor del tipo.
+   Ya no tiene círculo de color porque tus PNG ya vienen redondos y listos. */
+.poke__type__bg {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+/* Imagen del tipo en el resumen.
+   Estas imágenes vienen de assets/img/tipos. */
+.poke__type__bg img {
+    width: 54px;
+    height: 54px;
+
+    object-fit: contain;
+
+    filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.25));
+}
+
+.about {
+    max-width: 850px;
+
+    margin: 25px auto 0 auto;
+    padding: 24px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    font-size: 1.25em;
+    line-height: 1.4;
+    text-align: center;
+    text-transform: capitalize;
+
+    color: #202020;
+    background-color: #ffffff;
+
+    border: 4px solid #202020;
+    border-radius: 22px;
+
+    box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.22);
+}
+
+.about div,
+.about span {
+    padding: 10px;
+
+    background-color: #f3f3f3;
+    border-radius: 12px;
+}
+
+.id {
+    display: inline-block;
+
+    padding: 4px 10px;
+
+    background-color: var(--color-tipo-actual);
+    color: #ffffff;
+
+    border-radius: 10px;
+}
+
+/* ----------------------------- */
+/* ESTADÍSTICAS */
+/* ----------------------------- */
+
+.stats {
+    max-width: 900px;
+
+    margin: 0 auto;
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    color: #202020;
+    background-color: #ffffff;
+
+    border: 4px solid #202020;
+    border-radius: 22px;
+
+    box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.22);
+}
+
+.stats .stat {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    align-items: center;
+    gap: 18px;
+
+    padding: 10px;
+
+    background-color: #f3f3f3;
+    border-radius: 14px;
+}
+
+.stat div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 1.15em;
+    text-align: left;
+}
+
+.stats meter {
+    width: 100%;
+    height: 22px;
+
+    border-radius: 10px;
+    border: none;
+}
+
+.stats meter::-webkit-meter-bar {
+    background-color: rgba(183, 183, 183, 0.35);
+    border: none;
+    border-radius: 10px;
+}
+
+meter::-webkit-meter-optimum-value {
+    background-color: #23dd48be;
+    border-radius: 10px;
+}
+
+meter::-webkit-meter-suboptimum-value {
+    background-color: #fdc945e6;
+    border-radius: 10px;
+}
+
+meter::-webkit-meter-even-less-good-value {
+    background-color: #ff4545e2;
+    border-radius: 10px;
+}
+
+.statTypes {
+    margin-top: 18px;
+    padding: 18px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+
+    background-color: #f3f3f3;
+    border-radius: 18px;
+}
+
+.statTypeText {
+    font-size: 1.25em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    color: var(--color-tipo-actual);
+}
+
+.statIconHolder {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    font-size: 1.1em;
+}
+
+/* Imágenes de tipos dentro de Inmune a / Fuerte contra.
+   Ya no tienen círculo de color porque tus PNG ya están preparados. */
+.statIconHolder img,
+.imagen-tipo-lista {
+    width: 52px;
+    height: 52px;
+
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+
+    object-fit: contain;
+
+    filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.22));
+}
+
+/* ----------------------------- */
+/* EVOLUCIÓN Y VARIEDADES */
+/* ----------------------------- */
+
+.evolution,
+.varieties {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+
+    overflow-x: auto;
+
+    padding: 24px 10px 34px 10px;
+    margin-top: 20px;
+
+    text-align: center;
+}
+
+.evolution__pokemon,
+.varieties__pokemon {
+    min-width: 210px;
+
+    padding: 18px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    background-color: #ffffff;
+
+    border: 4px solid #202020;
+    border-radius: 22px;
+
+    box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.22);
+}
+
+.evolution__pokemon h1,
+.varieties__pokemon h1 {
+    font-size: 1.7em;
+    text-transform: capitalize;
+    color: #202020;
+}
+
+.evolution__pokemon img,
+.varieties__pokemon img {
+    width: 180px;
+    height: 180px;
+
+    object-fit: contain;
+    cursor: pointer;
+
+    filter: drop-shadow(8px 8px 0 rgba(0, 0, 0, 0.18));
+
+    transition: transform 0.2s ease;
+}
+
+.evolution__pokemon img:hover,
+.varieties__pokemon img:hover {
+    transform: scale(1.08);
+}
+
+.evolution i {
+    color: var(--color-tipo-actual);
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* ----------------------------- */
+/* PRELOADER */
+/* ----------------------------- */
+
+.loader-wrapper {
+    --line-width: 5px;
+    --curtain-color: #f1faee;
+    --outer-line-color: #e3350d;
+    --middle-line-color: #202020;
+    --inner-line-color: #ffffff;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 1000;
+}
+
+.loader {
+    display: block;
+    position: relative;
+
+    top: 50%;
+    left: 50%;
+
+    width: 150px;
+    height: 150px;
+
+    margin: -75px 0 0 -75px;
+
+    border: var(--line-width) solid transparent;
+    border-top-color: var(--outer-line-color);
+    border-radius: 100%;
+
+    animation: spin 2s linear infinite;
+
+    z-index: 1001;
+}
+
+.loader::before {
+    content: "";
+
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+
+    border: var(--line-width) solid transparent;
+    border-top-color: var(--inner-line-color);
+    border-radius: 100%;
+
+    animation: spin 3s linear infinite;
+}
+
+.loader::after {
+    content: "";
+
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+
+    border: var(--line-width) solid transparent;
+    border-top-color: var(--middle-line-color);
+    border-radius: 100%;
+
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader-wrapper .loader-section {
+    position: fixed;
+    top: 0;
+
+    width: 51%;
+    height: 100%;
+
+    background: var(--curtain-color);
+
+    z-index: 1000;
+}
+
+.loader-wrapper .loader-section.section-left {
+    left: 0;
+}
+
+.loader-wrapper .loader-section.section-right {
+    right: 0;
+}
+
+.loaded .loader-wrapper .loader-section.section-left {
+    transform: translateX(-100%);
+    transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.loaded .loader-wrapper .loader-section.section-right {
+    transform: translateX(100%);
+    transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.loaded .loader {
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+
+.loaded .loader-wrapper {
+    visibility: hidden;
+    transform: translateY(-100%);
+    transition: all 0.3s 1s ease-out;
+}
+
+/* ----------------------------- */
+/* RESPONSIVE */
+/* ----------------------------- */
+
+@media (max-width: 800px) {
+    .name {
+        font-size: 3.2em;
+    }
+
+    .japaneseName {
+        font-size: 1.4em;
+    }
+
+    .image {
+        transform: translateY(25px);
+    }
+
+    .image .imgFront,
+    .imgBack {
+        width: 240px;
+        height: 240px;
+    }
+
+    .details {
+        width: calc(100% - 28px);
+        margin-top: -25px;
+        padding: 75px 18px 18px 18px;
+    }
+
+    .tabs {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .tabs span {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+    }
+
+    .heightWeight {
+        flex-direction: column;
+        width: 100%;
+        gap: 14px;
+    }
+
+    .stats .stat {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .stat div {
+        justify-content: space-between;
+    }
+
+    .evolution,
+    .varieties {
+        justify-content: flex-start;
+    }
+}

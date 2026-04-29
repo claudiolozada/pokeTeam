@@ -1,15 +1,17 @@
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
+/* 🔒 AISLAMIENTO */
+.navbar-wrapper {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* el navbar en general */
+.navbar-wrapper *,
+.navbar-wrapper *::before,
+.navbar-wrapper *::after {
+    box-sizing: border-box;
+}
 
-.navbar-pokemon {
+/* NAVBAR */
+
+.navbar-wrapper .navbar-pokemon {
     width: 100%;
     height: 75px;
 
@@ -33,13 +35,11 @@ body {
     z-index: 1000;
 }
 
-.navbar-logo img {
-    width: 100%;
+.navbar-wrapper .navbar-logo img {
     height: 65px;
-    border-radius: 0%;
 }
 
-.navbar-links {
+.navbar-wrapper .navbar-links {
     list-style: none;
     display: flex;
     gap: 22px;
@@ -47,7 +47,7 @@ body {
     padding: 0;
 }
 
-.navbar-links a {
+.navbar-wrapper .navbar-links a {
     color: white;
     text-decoration: none;
     font-weight: bold;
@@ -55,14 +55,14 @@ body {
     transition: 0.2s ease;
 }
 
-.navbar-links a:hover {
+.navbar-wrapper .navbar-links a:hover {
     color: #111;
     background-color: white;
     padding: 8px 12px;
     border-radius: 20px;
 }
 
-.navbar-user {
+.navbar-wrapper .navbar-user {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -73,23 +73,25 @@ body {
     transition: 0.2s ease;
 }
 
-.navbar-user:hover {
+.navbar-wrapper .navbar-user:hover {
     background-color: rgba(0, 0, 0, 0.45);
 }
 
-.navbar-username {
+.navbar-wrapper .navbar-username {
     font-weight: bold;
     font-size: 15px;
 }
 
-.navbar-avatar {
+.navbar-wrapper .navbar-avatar {
     width: 42px;
     height: 42px;
     object-fit: cover;
     border-radius: 50%;
 }
 
-.overlay-menu {
+/* OVERLAY */
+
+.navbar-wrapper .overlay-menu {
     position: fixed;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.55);
@@ -99,13 +101,14 @@ body {
     z-index: 1500;
 }
 
-.overlay-menu.active {
+.navbar-wrapper .overlay-menu.active {
     opacity: 1;
     visibility: visible;
 }
 
-/* menu al precionar la foto de perfil */
-.user-side-menu {
+/* SIDE MENU */
+
+.navbar-wrapper .user-side-menu {
     position: fixed;
     top: 0;
     right: -380px;
@@ -120,11 +123,11 @@ body {
     box-shadow: -6px 0 20px rgba(0, 0, 0, 0.5);
 }
 
-.user-side-menu.active {
+.navbar-wrapper .user-side-menu.active {
     right: 0;
 }
 
-.close-menu {
+.navbar-wrapper .close-menu {
     background: transparent;
     color: white;
     border: none;
@@ -135,70 +138,52 @@ body {
     right: 22px;
 }
 
-.side-profile {
+.navbar-wrapper .side-profile {
     text-align: center;
     margin-top: 45px;
     border-bottom: 1px solid #333;
     padding-bottom: 25px;
 }
 
-.side-avatar {
+.navbar-wrapper .side-avatar {
     width: 130px;
     height: 130px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.side-profile h2 {
-    margin-top: 15px;
-    font-size: 24px;
-}
-
-.side-options {
+.navbar-wrapper .side-options {
     display: flex;
     flex-direction: column;
     margin-top: 30px;
     gap: 15px;
 }
 
-.side-options a {
+.navbar-wrapper .side-options a {
     color: white;
     text-decoration: none;
     background-color: #252525;
     padding: 15px;
     border-radius: 12px;
     font-weight: bold;
-    transition: 0.2s ease;
 }
 
-.side-options a:hover {
-    background-color: #e60012;
-    transform: translateX(-5px);
+.navbar-wrapper .logout-link {
+    background-color: #4d0000;
 }
 
-.logout-link {
-    background-color: #4d0000 !important;
-}
-
-.logout-link:hover {
-    background-color: #ff1f1f !important;
-}
-
+/* RESPONSIVE */
 
 @media (max-width: 900px) {
-    .navbar-links {
+    .navbar-wrapper .navbar-links {
         display: none;
     }
 
-    .navbar-pokemon {
+    .navbar-wrapper .navbar-pokemon {
         padding: 0 18px;
     }
 
-    .navbar-logo a {
-        font-size: 25px;
-    }
-
-    .navbar-username {
+    .navbar-wrapper .navbar-username {
         display: none;
     }
 }

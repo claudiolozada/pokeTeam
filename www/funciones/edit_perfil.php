@@ -4,126 +4,158 @@ session_start();
 
 $accion = $_POST["add"] ?? null;
 
-switch ($accion) {
-    case "avatar":
-        avatar($conn); // Pasamos la conexión como parámetro
-        break;
-    case "apodo":
-        apodo($conn);
-        break;
-    case "regis":
-        //regis($conn);
-        break;
-    default:
-        // Si no hay acción, redirigimos al index
-        header("Location: home.php");
-        exit;
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../index.php?error=no_session");
+    exit;
 }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $userId = $_SESSION['user_id'];
 
-function avatar($conn)
-{
-
-    // 1. Verificación de seguridad
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: ../index.php?error=no_session");
-        exit;
+    switch ($accion) {
+        case "avatar":
+            avatar($conn, $userId); // Pasamos la conexión como parámetro
+            break;
+        case "apodo":
+            apodo($conn, $userId);
+            break;
+        case "edad":
+            edad($conn, $userId);
+            break;
+        case "psw":
+            pws($conn, $userId);
+            break;
+        default:
+            // Si no hay acción, redirigimos al home
+            header("Location: home.php");
+            exit;
     }
+} else {
+    header("Location: ../pages/home.php");
+    exit;
+}
+function avatar($conn, $userId)
+{
+    // 2. Capturamos el nombre que viene del JS
+    $nuevoAvatar = $_POST['avatar_nombre'] ?? null;
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $userId = $_SESSION['user_id'];
+    if ($nuevoAvatar) {
+        try {
+            // 3. Preparamos el UPDATE
+            $sql = "UPDATE users SET avatar = ? WHERE id = ?";
+            $stmt = $conn->prepare($sql);
 
-        // 2. Capturamos el nombre que viene del JS
-        $nuevoAvatar = $_POST['avatar_nombre'] ?? null;
+            // "si" -> s (string para el avatar), i (integer para el ID)
+            $stmt->bind_param("si", $nuevoAvatar, $userId);
 
-        if ($nuevoAvatar) {
-            try {
-                // 3. Preparamos el UPDATE
-                $sql = "UPDATE users SET avatar = ? WHERE id = ?";
-                $stmt = $conn->prepare($sql);
+            // Ejecutamos una sola vez dentro del IF
+            if ($stmt->execute()) {
+                // Actualizamos la sesión para que el Home muestre el cambio al instante
+                $_SESSION['user_avatar'] = $nuevoAvatar;
 
-                // "si" -> s (string para el avatar), i (integer para el ID)
-                $stmt->bind_param("si", $nuevoAvatar, $userId);
-
-                // Ejecutamos una sola vez dentro del IF
-                if ($stmt->execute()) {
-                    // Actualizamos la sesión para que el Home muestre el cambio al instante
-                    $_SESSION['user_avatar'] = $nuevoAvatar;
-
-                    header("Location: ../pages/home.php?update=success");
-                    exit;
-                }
-            } catch (mysqli_sql_exception $e) {
-                // Error de base de datos en AWS (ej: si la columna no existe)
-                header("Location: ../pages/selec_avatar.php?error=sql");
+                header("Location: ../pages/home.php?update=success");
                 exit;
             }
-        } else {
-            // Si por alguna razón no llegó el nombre del avatar
-            header("Location: ../pages/selec_avatar.php?error=empty");
+        } catch (mysqli_sql_exception $e) {
+            // Error de base de datos en AWS (ej: si la columna no existe)
+            header("Location: ../pages/selec_avatar.php?error=sql");
             exit;
         }
     } else {
-        header("Location: ../pages/home.php");
+        // Si por alguna razón no llegó el nombre del avatar
+        header("Location: ../pages/selec_avatar.php?error=empty");
         exit;
     }
 }
 
-function apodo($conn)
+function apodo($conn, $userId)
 {
-    
-    // 1. Verificación de seguridad
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: ../index.php?error=no_session");
-        exit;
-    }
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $userId = $_SESSION['user_id'];
+    $nuevoapodo = $_POST['apodo'] ?? null;
 
-        // 2. Capturamos el nombre que viene del JS
-        $nuevoAvatar = $_POST['avatar_nombre'] ?? null;
+    if ($nuevoapodo) {
+        try {
+            // 3. Preparamos el UPDATE
+            $sql = "UPDATE users SET apodo = ? WHERE id = ?";
+            $stmt = $conn->prepare($sql);
 
-        if ($nuevoAvatar) {
-            try {
-                // 3. Preparamos el UPDATE
-                $sql = "UPDATE users SET avatar = ? WHERE id = ?";
-                $stmt = $conn->prepare($sql);
+            $stmt->bind_param("si", $nuevoapodo, $userId);
 
-                // "si" -> s (string para el avatar), i (integer para el ID)
-                $stmt->bind_param("si", $nuevoAvatar, $userId);
+            if ($stmt->execute()) {
+                // Actualizamos la sesión para que el Home muestre el cambio al instante
+                $_SESSION['apodo'] = $nuevoapodo;
 
-                // Ejecutamos una sola vez dentro del IF
-                if ($stmt->execute()) {
-                    // Actualizamos la sesión para que el Home muestre el cambio al instante
-                    $_SESSION['user_avatar'] = $nuevoAvatar;
-
-                    header("Location: ../pages/home.php?update=success");
-                    exit;
-                }
-            } catch (mysqli_sql_exception $e) {
-                // Error de base de datos en AWS (ej: si la columna no existe)
-                header("Location: ../pages/selec_avatar.php?error=sql");
+                header("Location: ../pages/perfil.php?update=success");
                 exit;
             }
-        } else {
-            // Si por alguna razón no llegó el nombre del avatar
-            header("Location: ../pages/selec_avatar.php?error=empty");
+        } catch (mysqli_sql_exception $e) {
+            header("Location: ../pages/perfil.php?error=sql");
             exit;
         }
     } else {
-        header("Location: ../pages/home.php");
+        // Si por alguna razón no llegó el apodo
+        header("Location: ../pages/perfil.php?error=empty");
         exit;
     }
 }
 
-function regis($conn)
+function edad($conn, $userId)
 {
-    $modelo = $_POST["Modelo"] ?? '';
-    $color = $_POST["Color"] ?? '';
 
-    $stmt = $conn->prepare("INSERT INTO coches (Modelo, Color) VALUES (?, ?)");
-    $stmt->bind_param("ss", $modelo, $color);
-    $stmt->execute();
+    $nuevaedad = $_POST['apodo'] ?? null;
 
-    header("Location: index.php?msg=registrado");
+    if ($nuevaedad) {
+        try {
+            // 3. Preparamos el UPDATE
+            $sql = "UPDATE users SET edad = ? WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+
+            $stmt->bind_param("si", $nuevaedad, $userId);
+
+            if ($stmt->execute()) {
+                // Actualizamos la sesión para que el Home muestre el cambio al instante
+                $_SESSION['edad'] = $nuevaedad;
+
+                header("Location: ../pages/perfil.php?update=success");
+                exit;
+            }
+        } catch (mysqli_sql_exception $e) {
+            header("Location: ../pages/perfil.php?error=sql");
+            exit;
+        }
+    } else {
+        // Si por alguna razón no llegó el apodo
+        header("Location: ../pages/perfil.php?error=empty");
+        exit;
+    }
+}
+
+function psw($conn, $userId)
+{
+
+    //$nuevapsw = $_POST['psw'] ?? null;
+
+    if ($nuevapsw) {
+        try {
+            // 3. Preparamos el UPDATE
+            $sql = "UPDATE users SET psw = ? WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+
+            $stmt->bind_param("si", $nuevapsw, $userId);
+
+            if ($stmt->execute()) {
+                // Actualizamos la sesión para que el Home muestre el cambio al instante
+                $_SESSION['edad'] = $nuevapsw;
+
+                header("Location: ../pages/perfil.php?update=success");
+                exit;
+            }
+        } catch (mysqli_sql_exception $e) {
+            header("Location: ../pages/perfil.php?error=sql");
+            exit;
+        }
+    } else {
+        // Si por alguna razón no llegó el apodo
+        header("Location: ../pages/perfil.php?error=empty");
+        exit;
+    }
 }
