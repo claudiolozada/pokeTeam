@@ -1,0 +1,204 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* el navbar en general */
+
+.navbar-pokemon {
+    width: 100%;
+    height: 75px;
+
+    background: linear-gradient(90deg, #8f1b08 0%, #c72808 45%, #e3350d 100%);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 35px;
+    color: white;
+
+    border-bottom: 4px solid #333;
+
+    box-shadow:
+        0 5px 0 rgba(0, 0, 0, 0.35),
+        0 8px 18px rgba(0, 0, 0, 0.35);
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-logo img {
+    width: 100%;
+    height: 65px;
+    border-radius: 0%;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 22px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    transition: 0.2s ease;
+}
+
+.navbar-links a:hover {
+    color: #111;
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+}
+
+.navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 8px 13px;
+    border-radius: 30px;
+    transition: 0.2s ease;
+}
+
+.navbar-user:hover {
+    background-color: rgba(0, 0, 0, 0.45);
+}
+
+.navbar-username {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.navbar-avatar {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.overlay-menu {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+    z-index: 1500;
+}
+
+.overlay-menu.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* menu al precionar la foto de perfil */
+.user-side-menu {
+    position: fixed;
+    top: 0;
+    right: -380px;
+    width: 340px;
+    max-width: 85%;
+    height: 100vh;
+    background: #181818;
+    color: white;
+    z-index: 2000;
+    padding: 30px 25px;
+    transition: 0.35s ease;
+    box-shadow: -6px 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.user-side-menu.active {
+    right: 0;
+}
+
+.close-menu {
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: 35px;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 22px;
+}
+
+.side-profile {
+    text-align: center;
+    margin-top: 45px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 25px;
+}
+
+.side-avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.side-profile h2 {
+    margin-top: 15px;
+    font-size: 24px;
+}
+
+.side-options {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    gap: 15px;
+}
+
+.side-options a {
+    color: white;
+    text-decoration: none;
+    background-color: #252525;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+.side-options a:hover {
+    background-color: #e60012;
+    transform: translateX(-5px);
+}
+
+.logout-link {
+    background-color: #4d0000 !important;
+}
+
+.logout-link:hover {
+    background-color: #ff1f1f !important;
+}
+
+
+@media (max-width: 900px) {
+    .navbar-links {
+        display: none;
+    }
+
+    .navbar-pokemon {
+        padding: 0 18px;
+    }
+
+    .navbar-logo a {
+        font-size: 25px;
+    }
+
+    .navbar-username {
+        display: none;
+    }
+}

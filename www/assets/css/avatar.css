@@ -1,0 +1,309 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== FONDO ===== */
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: white;
+  font-family: "Press Start 2P", cursive;
+
+  background:
+    radial-gradient(circle at 15% 20%, rgba(112, 114, 212, 0.18) 0 70px, transparent 72px),
+    radial-gradient(circle at 85% 75%, rgba(41, 59, 98, 0.16) 0 120px, transparent 122px),
+    radial-gradient(circle at 75% 18%, rgba(0, 0, 255, 0.11) 0 55px, transparent 57px),
+    linear-gradient(135deg, #05012e 0%, #000 45%, #08012a 100%);
+
+  background-attachment: fixed;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 2px, transparent 2px);
+
+  background-size: 45px 45px;
+}
+
+/* ===== ESTRUCTURA ===== */
+.contenedor {
+  min-height: 100vh;
+  padding: 35px 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.titulo {
+  margin-bottom: 28px;
+  font-size: 34px;
+  line-height: 1.5;
+
+  text-shadow:
+    4px 4px 0 #000,
+    -4px 4px 0 #000,
+    4px -4px 0 #000,
+    -4px -4px 0 #000;
+}
+
+/* ===== BOTONES ===== */
+.botones-genero {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+button {
+  border: 4px solid black;
+  background: #ffcc00;
+  color: black;
+  font-family: "Press Start 2P", cursive;
+  cursor: pointer;
+  box-shadow: 5px 5px 0 black;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background: white;
+  transform: scale(1.08);
+}
+
+/* ===== BOTONES DE GÉNERO ===== */
+.boton-genero {
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-size: 12px;
+  transition: none;
+}
+
+/* Masculino */
+.btnchico {
+  background: #0095ff;
+}
+
+/* Femenino */
+.btnchica {
+  background: #ff00d4;
+}
+
+/* Esto evita que cambien al pasar el mouse */
+.btnchico:hover {
+  background: #0095ff;
+  transform: none;
+}
+
+.btnchica:hover {
+  background: #ff00d4;
+  transform: none;
+}
+
+/* Mientras estás haciendo click */
+.btnchico:active,
+.btnchica:active {
+  box-shadow: 0 0 0 #333;
+  transform: translateY(5px);
+}
+
+/* Cuando queda seleccionado por JS */
+.btnchico.boton-activo,
+.btnchica.boton-activo {
+  box-shadow: 0 0 0 #333;
+  transform: translateY(5px);
+}
+
+/* ===== BOTÓN SELECCIONAR ===== */
+.boton-seleccionar {
+  padding: 18px 30px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+
+/* ===== CARRUSEL ===== */
+.carrusel {
+  position: relative;
+  width: 900px;
+  max-width: 100%;
+  height: 500px;
+  margin-bottom: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  position: absolute;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+
+  transition: 0.45s ease;
+}
+
+.sin-transicion {
+  transition: none !important;
+}
+
+/* ===== POSICIONES DE AVATARES ===== */
+.centro {
+  width: 340px;
+  height: 480px;
+  opacity: 1;
+  z-index: 5;
+
+  transform: translateX(0) scale(1);
+  filter: drop-shadow(12px 12px 0 rgba(0, 0, 0, 0.35));
+}
+
+.izquierda,
+.derecha {
+  width: 200px;
+  height: 330px;
+  opacity: 0.55;
+  z-index: 3;
+
+  filter: drop-shadow(8px 8px 0 rgba(0, 0, 0, 0.25));
+}
+
+.izquierda {
+  transform: translateX(-310px) scale(0.9);
+}
+
+.derecha {
+  transform: translateX(310px) scale(0.9);
+}
+
+.oculto-izquierda,
+.oculto-derecha {
+  width: 160px;
+  height: 280px;
+  opacity: 0;
+  z-index: 1;
+}
+
+.oculto-izquierda {
+  transform: translateX(-520px) scale(0.7);
+}
+
+.oculto-derecha {
+  transform: translateX(520px) scale(0.7);
+}
+
+/* flechas */
+.flecha {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+
+  font-size: 28px;
+  transform: translateY(-50%);
+}
+
+.flecha:hover {
+  transform: translateY(-50%) scale(1.12);
+}
+
+.flecha-izquierda {
+  left: 10px;
+}
+
+.flecha-derecha {
+  right: 10px;
+}
+
+/* ===== TABLET ===== */
+@media (max-width: 900px) {
+  .titulo {
+    font-size: 24px;
+  }
+
+  .carrusel {
+    height: 430px;
+  }
+
+  .centro {
+    width: 270px;
+    height: 400px;
+  }
+
+  .izquierda,
+  .derecha {
+    width: 150px;
+    height: 260px;
+  }
+
+  .izquierda {
+    transform: translateX(-230px) scale(0.9);
+  }
+
+  .derecha {
+    transform: translateX(230px) scale(0.9);
+  }
+
+  .oculto-izquierda {
+    transform: translateX(-390px) scale(0.7);
+  }
+
+  .oculto-derecha {
+    transform: translateX(390px) scale(0.7);
+  }
+}
+
+/* ===== MÓVIL ===== */
+@media (max-width: 650px) {
+  .titulo {
+    font-size: 18px;
+  }
+
+  .botones-genero {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .boton-genero {
+    font-size: 10px;
+  }
+
+  .carrusel {
+    height: 400px;
+  }
+
+  .centro {
+    width: 250px;
+    height: 380px;
+  }
+
+  .izquierda,
+  .derecha {
+    opacity: 0;
+  }
+
+  .flecha {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .boton-seleccionar {
+    padding: 16px 22px;
+    font-size: 11px;
+  }
+}

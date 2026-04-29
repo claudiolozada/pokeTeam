@@ -6,6 +6,8 @@ services:
       - "8080:80"
     volumes:
       - ./www:/var/www/html
+    env_file:
+      - .env
 
 volumes:
-  db_data:
+  db_data: 

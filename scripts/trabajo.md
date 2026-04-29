@@ -1,0 +1,8 @@
+25 y 26:
+El fin de semana aproveché en mi casa para adelantar la página home.php. La idea era que el usuario pudiera escoger un avatar y que ese avatar saliera en la página principal, junto con los cinco botones que llevan a las demás partes de la web. También hice el navbar aparte para poder incluirlo en todas las páginas y no repetir código.
+
+También hablé con la IA para crear un logo de PokeTeam, porque no quería poner solo el nombre así normal. Fui organizando el home, le metí un poco de CSS y algo de JavaScript, y las cosas que no sabía hacer o que no quedaban como quería, se las pedí a la IA para luego yo modificarlas a mi manera.
+
+Con los avatares tuve un rollo, porque las imágenes de los juegos se veían bien en pequeño, pero al ponerlas grandes se veían raras y demasiado pixeladas. Entonces usé la IA para mejorarles la calidad manteniendo el estilo pixel art, pero sin copiar personajes famosos de Pokémon. Al final creé mis propios avatares, los guardé con nombres como chico1, chico2, chica1, chica2, y también hice una foto de perfil para cada uno en otra carpeta llamada perfil.
+
+Mi idea es que cuando el usuario se registre, elija su avatar y se guarde ese nombre en la base de datos. Así después puedo usar ese mismo nombre para mostrar el avatar o la foto de perfil, dependiendo de la carpeta. También empecé a hacer el menú que se despliega al tocar la foto de perfil, y lo dejé dentro del navbar para que funcione en todas las páginas.

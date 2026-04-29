@@ -1,0 +1,302 @@
+/* --- Reseteo básico --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* --- Estilos generales --- */
+body {
+    min-height: 100vh;
+    color: #fff;
+
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.18) 0 70px, transparent 72px),
+        radial-gradient(circle at 85% 75%, rgba(0, 0, 0, 0.16) 0 120px, transparent 122px),
+        radial-gradient(circle at 75% 18%, rgba(255, 220, 0, 0.22) 0 55px, transparent 57px),
+        linear-gradient(135deg, #e3350d 0%, #c72808 45%, #8f1b08 100%);
+
+    background-attachment: fixed;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 2px, transparent 2px);
+
+    background-size: 45px 45px;
+}
+
+/* --- Contenedor principal del home --- */
+.contenedor-home {
+    width: 100%;
+    min-height: calc(100vh - 75px);
+    padding: 40px 60px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Layout principal --- */
+.inicio {
+    width: 100%;
+    max-width: 1150px;
+    min-height: 600px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 70px;
+}
+
+/* --- Zona izquierda: avatar --- */
+.zona-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+}
+
+.tarjeta-avatar {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 22px;
+
+    text-align: center;
+}
+
+/* Imagen real del avatar */
+.imagen-avatar {
+    width: 340px;
+    height: 480px;
+    object-fit: contain;
+
+    filter: drop-shadow(12px 12px 0 rgba(0, 0, 0, 0.25));
+}
+
+/* Texto debajo del avatar */
+.tarjeta-avatar h1 {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow: 4px 4px 0 #333;
+}
+
+.tarjeta-avatar h1 span {
+    color: #ffdc00;
+}
+
+.tarjeta-avatar p {
+    font-size: 10px;
+    line-height: 1.8;
+    color: #fff;
+    max-width: 420px;
+    text-shadow: 2px 2px 0 #333;
+}
+
+/* --- Zona derecha: menú --- */
+.zona-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.zona-menu h2 {
+    font-size: 21px;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    line-height: 1.6;
+    text-shadow: 4px 4px 0 #333;
+}
+
+/* Contenedor de botones */
+.botones-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Botón del menú */
+.boton-menu {
+    width: 100%;
+    height: 70px;
+    min-height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 18px 0 24px;
+
+    background-color: #f0f0f0;
+    color: #333;
+
+    border: 4px solid #333;
+    border-radius: 20px;
+
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 13px;
+
+    box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.35);
+
+    position: relative;
+    overflow: visible;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background-color 0.18s ease,
+        color 0.18s ease;
+}
+
+/* Flecha del botón */
+.boton-menu::before {
+    content: "▶";
+    margin-right: 15px;
+    color: #e3350d;
+    font-size: 13px;
+}
+
+/* Texto del botón */
+.boton-menu span {
+    flex: 1;
+}
+
+/* Pokéball del botón */
+.pokeball-menu {
+    width: 85px;
+    height: 85px;
+    object-fit: contain;
+
+    /* No tocar: así sobresale sin agrandar el botón */
+    margin-right: -60px;
+
+    transition: transform 0.2s ease;
+    z-index: 3;
+
+    filter: drop-shadow(5px 5px 0 rgba(0, 0, 0, 0.35));
+}
+
+/* Efectos */
+.boton-menu:hover {
+    transform: scale(1.06);
+    background-color: #ffdc00;
+    color: #111;
+    box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.4);
+    z-index: 2;
+}
+
+.boton-menu:hover::before {
+    color: #333;
+}
+
+.boton-menu:hover .pokeball-menu {
+    transform: rotate(25deg) scale(1.12);
+}
+
+.boton-menu:active {
+    transform: scale(1.02);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+    .contenedor-home {
+        padding: 30px 25px;
+    }
+
+    .inicio {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .zona-avatar {
+        align-items: center;
+    }
+
+    .tarjeta-avatar {
+        justify-content: center;
+    }
+
+    .avatar-grande {
+        width: 260px;
+        height: 380px;
+    }
+
+    .imagen-avatar {
+        width: 260px;
+        height: 380px;
+    }
+
+    .zona-menu {
+        padding-top: 0;
+        margin-top: 0;
+    }
+
+    .zona-menu h2 {
+        text-align: center;
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+
+    .botones-menu {
+        gap: 18px;
+    }
+
+    .boton-menu {
+        height: 58px;
+        min-height: 58px;
+        font-size: 10px;
+        padding: 0 12px 0 18px;
+        border-radius: 16px;
+    }
+
+    .boton-menu::before {
+        margin-right: 10px;
+        font-size: 10px;
+    }
+
+    .pokeball-menu {
+        width: 62px;
+        height: 62px;
+        margin-right: -42px;
+    }
+
+    .boton-menu:hover {
+        transform: scale(1.04);
+    }
+
+    .boton-menu:hover .pokeball-menu {
+        transform: rotate(25deg) scale(1.08);
+    }
+
+    .boton-menu:active {
+        transform: scale(1.01);
+    }
+}
