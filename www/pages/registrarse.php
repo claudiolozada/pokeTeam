@@ -53,5 +53,5 @@
     </div>
 
 </body>
-<?php include 'infoerror.php'; ?>
+<?php include '../includes/infoerror.php'; ?>
 </html>

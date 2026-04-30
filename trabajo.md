@@ -48,3 +48,5 @@ para mostrar el avatar o la foto de perfil, dependiendo de la carpeta. También 
 busque proyentos de github  que usen pokeapi y encomtre una pokedex que extraia la informacion con js y la convertia en un archivo json para poder
 usar esos datos en la web y mostrarlos con otras funciones en js.. adapte su web a mi proyecto ajustando algunas cosas para q se integrara mejor y
 le hice algunos ajustes a la base de datos para no repetir o duplicar informacion.
+
+30: solucione errores con el tema de editar cosas en la base de datos y gestione un poco los errores q podrian aparecer en la web creando un archivo que recibe el error por GET y depende del error mueste un abiso en pantalla y para avisar del  error, en el codigo uso if por si algo sale mal los redijigo a la pagina usando: header("Location: ../pages/perfil.php?error=locupado"); 
