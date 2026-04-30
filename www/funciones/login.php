@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $check->execute();
         
         if ($check->get_result()->num_rows > 0) {
-            header("Location: ../index.php?error=exists");
+            header("Location: ../index.php?error=locupado");
             exit;
         } else {
             // 2. Encriptamos la contraseña
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['username'] = $username;
 
                 // Mandamos a la página de avatar
-                header("Location: ../pages/selec_avatar.php?success=registered");
+                header("Location: ../pages/selec_avatar.php");
             } else {
                 header("Location: ../index.php?error=sql");
             }

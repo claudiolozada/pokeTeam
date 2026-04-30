@@ -42,7 +42,6 @@ $edad = $usuario['edad'] ?? "desconocida";
             <li><a href="equipo.php">Equipo</a></li>
             <li><a href="pokedex.php">Pokédex</a></li>
             <li><a href="tipos.php">Tabla de tipos</a></li>
-            <li><a href="favoritos.php">Favoritos</a></li>
         </ul>
 
         <div class="navbar-user" id="openUserMenu">
@@ -69,10 +68,12 @@ $edad = $usuario['edad'] ?? "desconocida";
 
         <div class="side-options">
             <a href="../pages/perfil.php">Editar cuenta</a>
-            <a href="../pages/favoritos.php">Ver favoritos</a>
+            <a href="../pages/pokedex.php">Ver pokedex</a>
             <a href="../pages/equipo.php">Mostrar equipo Pokémon</a>
             <a href="../index.php" class="logout-link">Cerrar sesión</a>
         </div>
     </aside>
 
 </div>
+
+<?php include 'infoerror.php'; ?>

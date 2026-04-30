@@ -12,18 +12,6 @@
 
 <body>
 
-    <?php
-    // Verificamos si existe el parámetro "error" en la URL
-    if (isset($_GET['error'])) {
-        if ($_GET['error'] == "exists") {
-            $error = "El nombre de usuario ya está en uso. Prueba con otro.";
-        } elseif ($_GET['error'] == "empty") {
-            $error = "Todos los campos son obligatorios.";
-        }
-        // Puedes agregar más condiciones aquí
-    }
-    ?>
-
     <div class="main-container">
 
         <form id="rsvpForm" class="pokeform" action="./funciones/login.php" method="POST">
@@ -72,5 +60,5 @@
     </div>
 
 </body>
-
+<?php include 'infoerror.php'; ?>
 </html>

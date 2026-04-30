@@ -47,11 +47,3 @@ FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
 FOREIGN KEY (pokemon_id) REFERENCES pokemon (id) ON DELETE CASCADE,
 CHECK (posicion_num BETWEEN 1 AND 6) 
 );
-
-CREATE TABLE pokemon_fav (
-user_id INT NOT NULL,
-pokemon_id INT NOT NULL,
-PRIMARY KEY (user_id,pokemon_id),
-FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
-FOREIGN KEY (pokemon_id) REFERENCES pokemon (id) ON DELETE CASCADE
-);

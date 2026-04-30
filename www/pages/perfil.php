@@ -82,19 +82,19 @@ include '../includes/navbar.php';
                                     <?php echo htmlspecialchars($nombre); ?>
                                 </span>
 
-                                <input type="text" class="input-editar"
-                                    value="<?php echo htmlspecialchars($nombre); ?>" hidden>
+                                <form action="../funciones/edit_perfil.php" method="POST" class="form-editar">
+                                    <input type="text" class="input-editar" name="username"
+                                        value="<?php echo htmlspecialchars($nombre); ?>" hidden>
                             </div>
 
-                            <form action="edit_perfil.php" method="POST" class="form-editar">
-                                <input type="hidden" name="add" value="username">
+                                <input type="text" name="add" value="username" hidden>
 
                                 <div class="botones-edicion">
                                     <button type="button" class="btn-editar" title="Editar">✎</button>
-                                    <button type="button" class="btn-guardar" title="Guardar">📩</button>
+                                    <button type="submit" class="btn-guardar" title="Guardar">📩</button>
                                     <button type="button" class="btn-cancelar" title="Cancelar">❌</button>
                                 </div>
-                            </form>
+                                </form>
                         </div>
 
                         <!-- APODO -->
@@ -106,18 +106,18 @@ include '../includes/navbar.php';
                                     <?php echo htmlspecialchars($apodo); ?>
                                 </span>
 
-                                <input type="text" class="input-editar"
-                                    value="<?php echo htmlspecialchars($apodo); ?>" hidden>
+                                <form action="../funciones/edit_perfil.php" method="POST" class="form-editar">
+                                    <input type="text" class="input-editar" name="apodo"
+                                        value="<?php echo htmlspecialchars($apodo); ?>" hidden>
                             </div>
 
-                            <form action="edit_perfil.php" method="POST" class="form-editar">
-                                <input type="hidden" name="add" value="apodo">
+                            <input type="text" name="add" value="apodo" hidden>
 
-                                <div class="botones-edicion">
-                                    <button type="button" class="btn-editar">✎</button>
-                                    <button type="button" class="btn-guardar">📩</button>
-                                    <button type="button" class="btn-cancelar">❌</button>
-                                </div>
+                            <div class="botones-edicion">
+                                <button type="button" class="btn-editar">✎</button>
+                                <button type="submit" class="btn-guardar">📩</button>
+                                <button type="button" class="btn-cancelar">❌</button>
+                            </div>
                             </form>
                         </div>
 
@@ -128,59 +128,57 @@ include '../includes/navbar.php';
 
                                 <span class="valor-campo texto">••••••••</span>
 
-                                <input type="password" class="input-editar" hidden>
+                                <form action="../funciones/edit_perfil.php" method="POST" class="form-editar">
+                                    <input type="password" name="pws" class="input-editar" hidden>
                             </div>
 
-                            <form action="edit_perfil.php" method="POST" class="form-editar">
-                                <input type="hidden" name="add" value="psw">
+                            <input type="text" name="add" value="psw" hidden>
 
-                                <div class="botones-edicion">
-                                    <button type="button" class="btn-editar">✎</button>
-                                    <button type="button" class="btn-guardar">📩</button>
-                                    <button type="button" class="btn-cancelar">❌</button>
-                                </div>
+                            <div class="botones-edicion">
+                                <button type="button" class="btn-editar">✎</button>
+                                <button type="submit" class="btn-guardar">📩</button>
+                                <button type="button" class="btn-cancelar">❌</button>
+                            </div>
                             </form>
                         </div>
 
                         <!-- EDAD -->
                         <div class="campo-perfil">
                             <div class="info-campo">
-                                <span class="titulo-campo">Edad</span>
+                                <span class="titulo-campo">edad</span>
 
                                 <span class="valor-campo texto">
-                                    <?php echo htmlspecialchars($edad); ?> años
+                                    <?php echo htmlspecialchars($edad); ?>
                                 </span>
 
-                                <input type="number" class="input-editar"
-                                    value="<?php echo htmlspecialchars($edad); ?>" hidden>
+                                <form action="../funciones/edit_perfil.php" method="POST" class="form-editar">
+                                    <input type="text" class="input-editar" name="edad"
+                                        value="<?php echo htmlspecialchars($edad); ?>" hidden>
                             </div>
 
-                            <form action="edit_perfil.php" method="POST" class="form-editar">
-                                <input type="hidden" name="add" value="edad">
+                            <input type="text" name="add" value="edad" hidden>
 
-                                <div class="botones-edicion">
-                                    <button type="button" class="btn-editar">✎</button>
-                                    <button type="button" class="btn-guardar">📩</button>
-                                    <button type="button" class="btn-cancelar">❌</button>
-                                </div>
+                            <div class="botones-edicion">
+                                <button type="button" class="btn-editar">✎</button>
+                                <button type="submit" class="btn-guardar">📩</button>
+                                <button type="button" class="btn-cancelar">❌</button>
+                            </div>
                             </form>
                         </div>
 
+                        <div class="zona-acciones-perfil">
+
+                            <a href="home.php" class="boton-volver">
+                                Volver al inicio
+                            </a>
+
+                            <a href="../acciones/cerrar-sesion.php" class="boton-cerrar">
+                                Cerrar sesión
+                            </a>
+
+                        </div>
+
                     </div>
-
-                    <div class="zona-acciones-perfil">
-
-                        <a href="home.php" class="boton-volver">
-                            Volver al inicio
-                        </a>
-
-                        <a href="../acciones/cerrar-sesion.php" class="boton-cerrar">
-                            Cerrar sesión
-                        </a>
-
-                    </div>
-
-                </div>
 
         </section>
 
@@ -214,39 +212,7 @@ include '../includes/navbar.php';
             input.value = originalValue.replace(' años', '');
         });
 
-        // 📩 GUARDAR
-        btnSave.addEventListener('click', async () => {
-
-            const valor = input.value;
-            const campoTipo = form.querySelector('input[name="add"]').value;
-
-            const formData = new FormData();
-            formData.append('add', campoTipo);
-            formData.append('valor', valor);
-
-            try {
-                const res = await fetch('edit_perfil.php', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const data = await res.text();
-                console.log("Respuesta PHP:", data);
-
-                if (res.ok) {
-
-                    texto.textContent = valor + (campoTipo === 'edad' ? ' años' : '');
-
-                    originalValue = texto.textContent;
-
-                    campo.classList.remove('editando');
-                    input.hidden = true;
-                }
-
-            } catch (err) {
-                console.error("Error guardando:", err);
-            }
-        });
+        
     });
 </script>
 

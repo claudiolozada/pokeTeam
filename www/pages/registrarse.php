@@ -53,4 +53,5 @@
     </div>
 
 </body>
+<?php include 'infoerror.php'; ?>
 </html>

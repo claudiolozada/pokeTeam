@@ -166,6 +166,14 @@
     padding: 15px;
     border-radius: 12px;
     font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* El efecto Hover */
+.navbar-wrapper .side-options a:hover {
+    background-color: #3a3a3a; /* Un gris más claro */
+    color: #f80d0d; /* Opcional: un color de acento */
+    padding-left: 20px; /* Desplazamiento sutil */
 }
 
 .navbar-wrapper .logout-link {
@@ -187,3 +195,5 @@
         display: none;
     }
 }
+
+side-options
