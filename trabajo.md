@@ -59,4 +59,4 @@ nuevos usuarios y cada ves que se edita el perfil
 3: use el codigo de la pokedex para crear la pag enfrentamientos en esta puedes buscar los pokemons por tipos y al elejir al
 pokemon te mostrara los pokemos con mas ventaja o desventaja en un enfrentamiento contra el pokemon elejido y deje explicaciones en todo el codigo mas q nada pq con tantos archivos facilmente se me olvida cual hace que y porque
 
-4:
+4: por los cambios que hice a la web y demas.. el esquema de base de datos que hice al principio ya no me sirve asi q hoy me encargue de hacer nuevamente es esquema entidad relacion, el relacional en 3FN y para que sea mas entendible, deje explicaciones de porque hice de esa forma algunas tablas.. ya q me vase en como funciona pokemon. 
