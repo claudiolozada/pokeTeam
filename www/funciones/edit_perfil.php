@@ -94,8 +94,10 @@ function avatar($conn, $userId)
             header("Location: ../pages/home.php");
             exit;
         }
-
     } catch (mysqli_sql_exception $e) {
+        // Guardamos el error real en el log 
+        log::error("Error al actualizar avatar: " . $e->getMessage());
+
         header("Location: ../pages/selec_avatar.php?error=sql");
         exit;
     }
@@ -147,8 +149,9 @@ function username($conn, $userId)
             header("Location: ../pages/perfil.php?update=success");
             exit;
         }
-
     } catch (mysqli_sql_exception $e) {
+
+        log::error("Error al actualizar username: " . $e->getMessage());
         header("Location: ../pages/perfil.php?error=sql");
         exit;
     }
@@ -184,8 +187,9 @@ function apodo($conn, $userId)
             header("Location: ../pages/perfil.php?update=success");
             exit;
         }
-
     } catch (mysqli_sql_exception $e) {
+
+        log::error("Error al actualizar apodo: " . $e->getMessage());
         header("Location: ../pages/perfil.php?error=sql");
         exit;
     }
@@ -227,8 +231,9 @@ function edad($conn, $userId)
             header("Location: ../pages/perfil.php?update=success");
             exit;
         }
-
     } catch (mysqli_sql_exception $e) {
+
+        log::error("Error al actualizar edad: " . $e->getMessage());
         header("Location: ../pages/perfil.php?error=sql");
         exit;
     }
@@ -269,11 +274,9 @@ function psw($conn, $userId)
             header("Location: ../pages/perfil.php?update=success");
             exit;
         }
-
     } catch (mysqli_sql_exception $e) {
+        log::error("Error al actualizar psw: " . $e->getMessage());
         header("Location: ../pages/perfil.php?error=sql");
         exit;
     }
 }
-
-?>
