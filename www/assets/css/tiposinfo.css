@@ -1,0 +1,637 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
+
+/* ============================= */
+/* RESET */
+/* ============================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ============================= */
+/* VARIABLES DE TIPOS */
+/* ============================= */
+
+:root {
+    --planta: #5FBD58;
+    --bicho: #92BC2C;
+    --siniestro: #595761;
+    --dragon: #0C69C8;
+    --electrico: #F2D94E;
+    --hada: #EE90E6;
+    --lucha: #D3425F;
+    --fuego: #f48e2f;
+    --volador: #A1BBEC;
+    --fantasma: #5F6DBC;
+    --tierra: #DA7C4D;
+    --hielo: #75D0C1;
+    --normal: #A0A29F;
+    --veneno: #B763CF;
+    --psiquico: #ff2ca8;
+    --roca: #917b18;
+    --acero: #5695A3;
+    --agua: #539DDF;
+
+    --color-tipo-actual: #e3350d;
+}
+
+/* ============================= */
+/* COLOR SEGÚN TIPO EN ESPAÑOL */
+/* ============================= */
+
+body.tipo-planta {
+    --color-tipo-actual: var(--planta);
+}
+
+body.tipo-bicho {
+    --color-tipo-actual: var(--bicho);
+}
+
+body.tipo-siniestro {
+    --color-tipo-actual: var(--siniestro);
+}
+
+body.tipo-dragon {
+    --color-tipo-actual: var(--dragon);
+}
+
+body.tipo-electrico {
+    --color-tipo-actual: var(--electrico);
+}
+
+body.tipo-hada {
+    --color-tipo-actual: var(--hada);
+}
+
+body.tipo-lucha {
+    --color-tipo-actual: var(--lucha);
+}
+
+body.tipo-fuego {
+    --color-tipo-actual: var(--fuego);
+}
+
+body.tipo-volador {
+    --color-tipo-actual: var(--volador);
+}
+
+body.tipo-fantasma {
+    --color-tipo-actual: var(--fantasma);
+}
+
+body.tipo-tierra {
+    --color-tipo-actual: var(--tierra);
+}
+
+body.tipo-hielo {
+    --color-tipo-actual: var(--hielo);
+}
+
+body.tipo-normal {
+    --color-tipo-actual: var(--normal);
+}
+
+body.tipo-veneno {
+    --color-tipo-actual: var(--veneno);
+}
+
+body.tipo-psiquico {
+    --color-tipo-actual: var(--psiquico);
+}
+
+body.tipo-roca {
+    --color-tipo-actual: var(--roca);
+}
+
+body.tipo-acero {
+    --color-tipo-actual: var(--acero);
+}
+
+body.tipo-agua {
+    --color-tipo-actual: var(--agua);
+}
+
+/* ============================= */
+/* BODY */
+/* ============================= */
+
+body {
+    min-height: 100vh;
+    color: #202020;
+    font-family: "Jersey 25", sans-serif;
+
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.20) 0 75px, transparent 77px),
+        radial-gradient(circle at 85% 75%, rgba(0, 0, 0, 0.14) 0 125px, transparent 127px),
+        radial-gradient(circle at 75% 18%, rgba(255, 255, 255, 0.16) 0 60px, transparent 62px),
+        linear-gradient(135deg, var(--color-tipo-actual) 0%, var(--color-tipo-actual) 45%, rgba(0, 0, 0, 0.22) 100%);
+
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+/* Cuadritos del fondo */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.09) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.09) 2px, transparent 2px);
+
+    background-size: 45px 45px;
+}
+
+/* Capa de profundidad */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.10), rgba(0, 0, 0, 0.20));
+}
+
+/* ============================= */
+/* CONTENEDOR GENERAL */
+/* ============================= */
+
+.contenedor-tipo-info {
+    width: 100%;
+    max-width: 1000px;
+
+    margin: 0 auto;
+    padding: 20px 20px 40px;
+
+    position: relative;
+    z-index: 5;
+}
+
+/* ============================= */
+/* ZONA SUPERIOR */
+/* ============================= */
+
+.zona-superior-tipo {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+
+    position: relative;
+    z-index: 8;
+}
+
+.botones-tipo {
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    margin-bottom: 0;
+}
+
+.boton-volver-tipo {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-decoration: none;
+    font-size: 1.8em;
+    line-height: 1;
+
+    color: #202020;
+    background-color: #ffffff;
+
+    border: 4px solid #202020;
+    border-radius: 50%;
+
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.boton-volver-tipo:hover {
+    transform: scale(1.12);
+    background-color: #202020;
+    color: #ffffff;
+}
+
+.nombres-tipo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 0;
+}
+
+.subtitulo-tipo {
+    font-size: 1.45em;
+    letter-spacing: 4px;
+    color: rgba(255, 255, 255, 0.55);
+
+    text-transform: uppercase;
+}
+
+.nombres-tipo h1 {
+    font-size: 4.2em;
+    font-weight: 400;
+    letter-spacing: 2px;
+
+    color: #ffffff;
+
+    -webkit-text-stroke: 1.5px #ffffff;
+
+    text-shadow:
+        4px 4px 0 rgba(0, 0, 0, 0.42);
+
+    text-transform: capitalize;
+}
+
+/* ============================= */
+/* IMAGEN PRINCIPAL DEL TIPO */
+/* ============================= */
+
+.imagen-principal-tipo {
+    position: relative;
+
+    width: 250px;
+    height: 250px;
+
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transform: translateY(18px);
+}
+
+.icono-tipo-grande {
+    width: 140px;
+    height: 140px;
+
+    object-fit: contain;
+
+    position: relative;
+    z-index: 10;
+
+    filter: drop-shadow(12px 12px 0 rgba(0, 0, 0, 0.25));
+}
+
+.pokeball-fondo-tipo {
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    object-fit: contain;
+
+    opacity: 0.20;
+    z-index: 1;
+
+    animation: girarPokeballTipo 5s linear infinite;
+}
+
+@keyframes girarPokeballTipo {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================= */
+/* PANEL INFERIOR */
+/* ============================= */
+
+.panel-info-tipo {
+    width: 100%;
+
+    margin: -25px auto 0 auto;
+    padding: 40px 22px 26px 22px;
+
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.97), rgba(242, 242, 242, 0.97));
+
+    border: 5px solid #202020;
+    border-radius: 34px 34px 26px 26px;
+
+    box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.28);
+
+    position: relative;
+    z-index: 2;
+
+    overflow: hidden;
+}
+
+.barra-color-tipo {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 14px;
+
+    background: linear-gradient(90deg, var(--color-tipo-actual), #ffffff, var(--color-tipo-actual));
+}
+
+/* ============================= */
+/* DESCRIPCIÓN */
+/* ============================= */
+
+.descripcion-tipo {
+    max-width: 820px;
+
+    margin: 0 auto 24px auto;
+    padding: 20px;
+
+    text-align: center;
+
+    color: #202020;
+    background-color: #ffffff;
+
+    border: 4px solid #202020;
+    border-radius: 22px;
+
+    box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.22);
+}
+
+.descripcion-tipo h2,
+.panel-relacion h2 {
+    margin-bottom: 12px;
+
+    font-size: 1.9em;
+    font-weight: 400;
+    letter-spacing: 1px;
+
+    color: var(--color-tipo-actual);
+
+    text-transform: uppercase;
+
+    text-shadow:
+        2px 2px 0 rgba(0, 0, 0, 0.16);
+}
+
+.descripcion-tipo p {
+    font-size: 1.28em;
+    line-height: 1.45;
+}
+
+/* ============================= */
+/* BOTONES DE RELACIONES */
+/* ============================= */
+
+.relaciones-tipo {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.tabs-relaciones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    margin-bottom: 22px;
+    padding-bottom: 20px;
+
+    border-bottom: 4px solid #202020;
+}
+
+.tab-relacion {
+    min-width: 155px;
+
+    padding: 10px 16px;
+
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.12em;
+    font-family: inherit;
+
+    color: #202020;
+    background-color: #ffffff;
+
+    border: 4px solid #202020;
+    border-radius: 16px;
+
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.28);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.tab-relacion:hover {
+    transform: translateY(-4px) scale(1.05);
+    background-color: var(--color-tipo-actual);
+    color: #ffffff;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.35);
+}
+
+.tab-relacion.activa {
+    background-color: #202020;
+    color: #ffffff;
+}
+
+/* ============================= */
+/* PANELES DE RELACIONES */
+/* ============================= */
+
+.contenido-relaciones {
+    width: 100%;
+}
+
+.panel-relacion {
+    display: none;
+
+    padding: 22px;
+
+    text-align: center;
+
+    color: #202020;
+    background-color: #ffffff;
+
+    border: 4px solid #202020;
+    border-radius: 22px;
+
+    box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.22);
+}
+
+.panel-relacion.activo {
+    display: block;
+}
+
+.panel-relacion p {
+    margin-bottom: 18px;
+
+    font-size: 1.18em;
+    line-height: 1.3;
+}
+
+.lista-iconos-tipo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.caja-icono-tipo {
+    width: 62px;
+    height: 62px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #f3f3f3;
+
+    border: 3px solid #202020;
+    border-radius: 18px;
+
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.20);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background-color 0.18s ease;
+}
+
+.caja-icono-tipo:hover {
+    transform: scale(1.08);
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.28);
+}
+
+.caja-icono-tipo img {
+    width: 49px;
+    height: 49px;
+
+    object-fit: contain;
+
+    filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.22));
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 800px) {
+
+    .contenedor-tipo-info {
+        padding: 20px 14px 38px;
+    }
+
+    .subtitulo-tipo {
+        font-size: 1.25em;
+    }
+
+    .nombres-tipo h1 {
+        font-size: 3.3em;
+    }
+
+    .imagen-principal-tipo {
+        width: 220px;
+        height: 220px;
+
+        transform: translateY(15px);
+    }
+
+    .pokeball-fondo-tipo {
+        width: 220px;
+        height: 220px;
+    }
+
+    .icono-tipo-grande {
+        width: 125px;
+        height: 125px;
+    }
+
+    .panel-info-tipo {
+        width: calc(100% - 10px);
+
+        margin-top: -20px;
+        padding: 58px 16px 22px 16px;
+    }
+
+    .tabs-relaciones {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .tab-relacion {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .descripcion-tipo h2,
+    .panel-relacion h2 {
+        font-size: 1.6em;
+    }
+
+    .descripcion-tipo p,
+    .panel-relacion p {
+        font-size: 1.15em;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .nombres-tipo h1 {
+        font-size: 2.6em;
+    }
+
+    .subtitulo-tipo {
+        font-size: 1em;
+        letter-spacing: 3px;
+    }
+
+    .imagen-principal-tipo {
+        width: 195px;
+        height: 195px;
+    }
+
+    .pokeball-fondo-tipo {
+        width: 195px;
+        height: 195px;
+    }
+
+    .icono-tipo-grande {
+        width: 112px;
+        height: 112px;
+    }
+
+    .caja-icono-tipo {
+        width: 56px;
+        height: 56px;
+    }
+
+    .caja-icono-tipo img {
+        width: 44px;
+        height: 44px;
+    }
+}
