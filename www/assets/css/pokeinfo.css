@@ -864,3 +864,112 @@ meter::-webkit-meter-even-less-good-value {
         justify-content: flex-start;
     }
 }
+
+#frase-vs {
+    width: 100%;
+    max-width: 850px;
+
+    margin: 28px auto 32px;
+
+    text-align: center;
+
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 2;
+    font-weight: normal;
+
+    color: #222;
+}
+
+/* --------------------------------------------------
+   RESULTADOS POKE VS
+   4 Pokémon por fila
+-------------------------------------------------- */
+
+#resultados-vs {
+    width: 100%;
+    max-width: 1000px;
+    margin: 25px auto 0;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+
+    justify-items: center;
+    align-items: start;
+}
+
+#resultados-vs .evolution__pokemon {
+    width: 100%;
+    max-width: 170px;
+    text-align: center;
+}
+
+#resultados-vs .evolution__pokemon img {
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+}
+
+#resultados-vs .evolution__pokemon h1 {
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+#resultados-vs .evolution__pokemon p {
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+@media (max-width: 900px) {
+    #resultados-vs {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    #resultados-vs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 400px) {
+    #resultados-vs {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+/* --------------------------------------------------
+   CUADRO SIN RESULTADOS - POKE VS
+-------------------------------------------------- */
+
+.cuadro-sin-resultados {
+    width: 100%;
+    max-width: 420px;
+    min-height: 150px;
+
+    grid-column: 1 / -1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 20px auto;
+    padding: 30px;
+
+    border: 4px solid #222;
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.88);
+
+    box-shadow: 6px 6px 0 #222;
+
+    text-align: center;
+}
+
+.cuadro-sin-resultados h1 {
+    font-size: 20px;
+    color: #222;
+    margin: 0;
+}

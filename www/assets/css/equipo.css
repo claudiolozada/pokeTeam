@@ -1,0 +1,323 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* ===== RESET BÁSICO ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== BODY ===== */
+body {
+    min-height: 100vh;
+    color: #fff;
+
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.18) 0 70px, transparent 72px),
+        radial-gradient(circle at 85% 75%, rgba(0, 0, 0, 0.16) 0 120px, transparent 122px),
+        radial-gradient(circle at 75% 18%, rgba(255, 220, 0, 0.22) 0 55px, transparent 57px),
+        linear-gradient(135deg, #e3350d 0%, #c72808 45%, #8f1b08 100%);
+
+    background-attachment: fixed;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 2px, transparent 2px);
+
+    background-size: 45px 45px;
+}
+
+/* ===== CONTENEDOR GENERAL ===== */
+.contenedor-equipo {
+    width: 100%;
+    min-height: calc(100vh - 75px);
+
+    padding: 35px 60px 50px;
+
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+}
+
+/* ===== ZONA DEL ENTRENADOR Y POKÉMON ===== */
+.zona-entrenador-equipo {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Caja principal de visualización */
+.escenario-equipo {
+    width: 100%;
+    max-width: 900px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Este div es el espacio donde irá el entrenador con los Pokémon alrededor */
+.vista-entrenador-pokemon {
+    position: relative;
+
+    width: 100%;
+    max-width: 760px;
+    height: 280px;
+
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.08)),
+        #3b3b3b;
+
+    border: 5px solid #222;
+    border-radius: 24px;
+
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.35);
+
+    overflow: hidden;
+}
+
+/* Suelo falso para visualizar la base */
+.vista-entrenador-pokemon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 75px;
+
+    background: rgba(0, 0, 0, 0.22);
+    border-top: 4px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Avatar del entrenador */
+.entrenador-equipo {
+    position: absolute;
+    left: 50%;
+    bottom: 25px;
+    transform: translateX(-50%);
+
+    height: 190px;
+    z-index: 5;
+
+    image-rendering: pixelated;
+    filter: drop-shadow(5px 5px 0 rgba(0, 0, 0, 0.35));
+}
+
+/* Cuadros temporales para visualizar posiciones futuras de Pokémon */
+.pokemon-alrededor {
+    position: absolute;
+
+    width: 70px;
+    height: 70px;
+
+    background-color: rgba(255, 255, 255, 0.25);
+    border: 4px dashed rgba(255, 255, 255, 0.6);
+    border-radius: 18px;
+
+    z-index: 4;
+}
+
+/* Posiciones provisionales */
+.pokemon-1 {
+    left: 18%;
+    bottom: 45px;
+}
+
+.pokemon-2 {
+    right: 18%;
+    bottom: 45px;
+}
+
+.pokemon-3 {
+    left: 32%;
+    bottom: 115px;
+
+    width: 55px;
+    height: 55px;
+
+    z-index: 3;
+}
+
+.pokemon-4 {
+    right: 32%;
+    bottom: 115px;
+
+    width: 55px;
+    height: 55px;
+
+    z-index: 3;
+}
+
+.pokemon-5 {
+    left: 8%;
+    bottom: 95px;
+
+    width: 55px;
+    height: 55px;
+
+    z-index: 3;
+}
+
+.pokemon-6 {
+    right: 8%;
+    bottom: 95px;
+
+    width: 55px;
+    height: 55px;
+
+    z-index: 3;
+}
+
+/* ===== LÍNEA SEPARADORA ===== */
+.linea-separadora {
+    width: 100%;
+    max-width: 950px;
+    height: 5px;
+
+    margin: 35px auto 30px;
+
+    background-color: #222;
+    border-radius: 20px;
+
+    box-shadow: 0 5px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* ===== ZONA EQUIPO POKÉMON ===== */
+.zona-lista-equipo {
+    width: 100%;
+    max-width: 950px;
+
+    margin: 0 auto;
+    text-align: center;
+}
+
+.zona-lista-equipo h1 {
+    margin-bottom: 28px;
+
+    color: white;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    text-shadow:
+        4px 4px 0 #222,
+        6px 6px 0 rgba(0, 0, 0, 0.35);
+}
+
+/* Grid de 6 espacios: 3 arriba y 3 abajo */
+.grid-equipo {
+    display: grid;
+    grid-template-columns: repeat(3, 210px);
+    justify-content: center;
+    gap: 26px;
+}
+
+/* Espacios vacíos del equipo estilo carta */
+.slot-pokemon {
+    min-height: 230px;
+    max-width: 210px;
+    width: 100%;
+
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(216, 216, 216, 0.72),
+            rgba(159, 159, 159, 0.62)
+        );
+
+    border: 5px solid #222;
+    border-radius: 22px;
+
+    box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background-color 0.18s ease;
+}
+
+.slot-pokemon span {
+    color: #555;
+    font-size: 42px;
+    line-height: 1;
+
+    text-shadow:
+        2px 2px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Hover para que parezca seleccionable */
+.slot-pokemon:hover {
+    transform: scale(1.04);
+    box-shadow: 9px 9px 0 rgba(0, 0, 0, 0.42);
+
+    cursor: pointer;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 850px) {
+
+    .contenedor-equipo {
+        padding: 30px 25px 45px;
+    }
+
+    .vista-entrenador-pokemon {
+        height: 250px;
+    }
+
+    .entrenador-equipo {
+        height: 165px;
+    }
+
+    .grid-equipo {
+        grid-template-columns: repeat(2, 210px);
+        justify-content: center;
+    }
+}
+
+@media (max-width: 520px) {
+
+    .contenedor-equipo {
+        padding: 25px 18px 40px;
+    }
+
+    .vista-entrenador-pokemon {
+        height: 230px;
+    }
+
+    .entrenador-equipo {
+        height: 145px;
+    }
+
+    .pokemon-alrededor {
+        width: 52px;
+        height: 52px;
+    }
+
+    .grid-equipo {
+        grid-template-columns: 210px;
+        justify-content: center;
+    }
+
+    .slot-pokemon {
+        min-height: 230px;
+    }
+
+    .zona-lista-equipo h1 {
+        font-size: 14px;
+    }
+}

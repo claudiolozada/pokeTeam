@@ -1,14 +1,5 @@
 <?php
 include '../includes/navbar.php';
-
-/* 
-    Estas variables normalmente deberían venir de la sesión o de la base de datos.
-    Las dejo protegidas por si todavía no las tienes cargadas.
-    $avatar = $avatar ?? '../assets/img/avatar.png';
-    $apodo = $apodo ?? 'Entrenador';
-    $username = $username ?? 'usuario123';
-    $edad = $edad ?? '18';
-    */
 ?>
 
 <!DOCTYPE html>
@@ -87,14 +78,14 @@ include '../includes/navbar.php';
                                         value="<?php echo htmlspecialchars($nombre); ?>" hidden>
                             </div>
 
-                                <input type="text" name="add" value="username" hidden>
+                            <input type="text" name="add" value="username" hidden>
 
-                                <div class="botones-edicion">
-                                    <button type="button" class="btn-editar" title="Editar">✎</button>
-                                    <button type="submit" class="btn-guardar" title="Guardar">📩</button>
-                                    <button type="button" class="btn-cancelar" title="Cancelar">❌</button>
-                                </div>
-                                </form>
+                            <div class="botones-edicion">
+                                <button type="button" class="btn-editar" title="Editar">✎</button>
+                                <button type="submit" class="btn-guardar" title="Guardar">📩</button>
+                                <button type="button" class="btn-cancelar" title="Cancelar">❌</button>
+                            </div>
+                            </form>
                         </div>
 
                         <!-- APODO -->
@@ -172,9 +163,12 @@ include '../includes/navbar.php';
                                 Volver al inicio
                             </a>
 
-                            <a href="../acciones/cerrar-sesion.php" class="boton-cerrar">
-                                Cerrar sesión
-                            </a>
+                            <form id="exit" action="../funciones/login.php" method="POST">
+                                <input type="text" name="exit" value="exit" hidden>
+                                <button type="submit" class="boton-cerrar">
+                                    Cerrar sesion
+                                </button>
+                            </form>
 
                         </div>
 
@@ -212,7 +206,7 @@ include '../includes/navbar.php';
             input.value = originalValue.replace(' años', '');
         });
 
-        
+
     });
 </script>
 

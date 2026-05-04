@@ -1,6 +1,7 @@
 <?php
+
 // Si alguien intenta entrar directo, esta constante no existirá
-if (!defined('ACCESO_DASHBOARD')) {
-    header("HTTP/1.1 403 Forbidden");
-    exit("Acceso directo no permitido.");
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../index.php?error=denegado");
+    exit();
 }

@@ -49,4 +49,14 @@ busque proyentos de github  que usen pokeapi y encomtre una pokedex que extraia 
 usar esos datos en la web y mostrarlos con otras funciones en js.. adapte su web a mi proyecto ajustando algunas cosas para q se integrara mejor y
 le hice algunos ajustes a la base de datos para no repetir o duplicar informacion.
 
-30: solucione errores con el tema de editar cosas en la base de datos y gestione un poco los errores q podrian aparecer en la web creando un archivo que recibe el error por GET y depende del error mueste un abiso en pantalla y para avisar del  error, en el codigo uso if por si algo sale mal los redijigo a la pagina usando: header("Location: ../pages/perfil.php?error=locupado"); 
+30: solucione errores con el tema de editar cosas en la base de datos y gestione un poco los errores q podrian aparecer en la web 
+creando un archivo que recibe el error por GET y depende del error mueste un abiso en pantalla y para avisar del  error, en el 
+codigo uso if por si algo sale mal los redijigo a la pagina usando: header("Location: ../pages/perfil.php?error=locupado"); 
+
+1/5: acctualice el archivo infoerror para q tambien de avisos cuando siertas cosas funcionan bien ej: el msj de bienbenida a
+nuevos usuarios y cada ves que se edita el perfil
+
+3: use el codigo de la pokedex para crear la pag enfrentamientos en esta puedes buscar los pokemons por tipos y al elejir al
+pokemon te mostrara los pokemos con mas ventaja o desventaja en un enfrentamiento contra el pokemon elejido y deje explicaciones en todo el codigo mas q nada pq con tantos archivos facilmente se me olvida cual hace que y porque
+
+4:

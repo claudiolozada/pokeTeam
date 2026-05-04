@@ -169,6 +169,34 @@
     transition: all 0.3s ease;
 }
 
+.navbar-wrapper .side-options form {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-wrapper .side-options .logout-link {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    font-size: inherit;
+
+    color: white;
+    text-decoration: none;
+    background-color: #4d0000;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.navbar-wrapper .side-options .logout-link:hover {
+    background-color: #8b0000;
+    color: white;
+    padding-left: 20px;
+}
+
 /* El efecto Hover */
 .navbar-wrapper .side-options a:hover {
     background-color: #3a3a3a; /* Un gris más claro */

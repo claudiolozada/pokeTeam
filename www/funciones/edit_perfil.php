@@ -1,213 +1,279 @@
 <?php
 require_once '../db/conn.php';
+
+// Iniciamos la sesión para poder saber qué usuario está conectado.
 session_start();
 
 
-//si la web no encuentra la sesion
+// --------------------------------------------------
+// 1. VALIDAR SESIÓN
+// --------------------------------------------------
+
+// Si no existe user_id en la sesión, significa que el usuario no ha iniciado sesión.
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../index.php?error=no_session");
+    header("Location: ../index.php?error=sinsesion");
     exit;
 }
 
+
+// --------------------------------------------------
+// 2. RECIBIR ACCIÓN DEL FORMULARIO
+// --------------------------------------------------
+
+// "add" indica qué dato quiere actualizar el usuario.
+// Puede ser: avatar, username, apodo, edad o psw.
 $accion = $_POST["add"] ?? null;
+
+// Guardamos el id del usuario conectado.
 $userId = $_SESSION['user_id'];
 
+
+// --------------------------------------------------
+// 3. ELEGIR QUÉ FUNCIÓN EJECUTAR
+// --------------------------------------------------
+
 switch ($accion) {
+
     case "avatar":
-        avatar($conn, $userId); // Pasamos la conexión como parámetro
+        avatar($conn, $userId);
         break;
+
     case "username":
         username($conn, $userId);
         break;
+
     case "apodo":
         apodo($conn, $userId);
         break;
+
     case "edad":
         edad($conn, $userId);
         break;
+
     case "psw":
-        pws($conn, $userId);
+        psw($conn, $userId);
         break;
+
     default:
-        // Si no hay acción, redirigimos al perfil
-        header("Location: ../pages/perfil.php");
+        // Si no llega ninguna acción válida, volvemos al perfil.
+        header("Location: ../pages/perfil.php?error=empty");
         exit;
 }
 
+
+// --------------------------------------------------
+// FUNCIÓN: ACTUALIZAR AVATAR
+// --------------------------------------------------
 
 function avatar($conn, $userId)
 {
-    // 2. Capturamos el nombre que viene del JS
+    // Recibimos el nombre del avatar enviado desde el formulario o JS.
     $nuevoAvatar = $_POST['avatar_nombre'] ?? null;
 
-    if ($nuevoAvatar) {
-        try {
-            // 3. Preparamos el UPDATE
-            $sql = "UPDATE users SET avatar = ? WHERE id = ?";
-            $stmt = $conn->prepare($sql);
-
-            // "si" -> s (string para el avatar), i (integer para el ID)
-            $stmt->bind_param("si", $nuevoAvatar, $userId);
-
-            // Ejecutamos una sola vez dentro del IF
-            if ($stmt->execute()) {
-                // Actualizamos la sesión para que el Home muestre el cambio al instante
-                $_SESSION['user_avatar'] = $nuevoAvatar;
-
-                header("Location: ../pages/home.php?update=success");
-                exit;
-            }
-        } catch (mysqli_sql_exception $e) {
-            // Error de base de datos en AWS (ej: si la columna no existe)
-            header("Location: ../pages/selec_avatar.php?error=sql");
-            exit;
-        }
-    } else {
-        // Si por alguna razón no llegó el nombre del avatar
+    // Si no llegó ningún avatar, mandamos error.
+    if (!$nuevoAvatar) {
         header("Location: ../pages/selec_avatar.php?error=empty");
         exit;
     }
+
+    try {
+        // Actualizamos el avatar del usuario.
+        $sql = "UPDATE users SET avatar = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+
+        // "s" = string para avatar.
+        // "i" = integer para id.
+        $stmt->bind_param("si", $nuevoAvatar, $userId);
+
+        if ($stmt->execute()) {
+
+            // Guardamos el avatar en sesión para que se actualice más rápido en la web.
+            $_SESSION['user_avatar'] = $nuevoAvatar;
+
+            // Mandamos al home
+            header("Location: ../pages/home.php");
+            exit;
+        }
+
+    } catch (mysqli_sql_exception $e) {
+        header("Location: ../pages/selec_avatar.php?error=sql");
+        exit;
+    }
 }
+
+
+// --------------------------------------------------
+// FUNCIÓN: ACTUALIZAR USERNAME
+// --------------------------------------------------
 
 function username($conn, $userId)
 {
+    // Recibimos el nuevo username.
+    $nuevousername = trim($_POST['username'] ?? '');
 
-    // 1. El nombre que quieres verificar
-    $nuevousername = $_POST['username'];
+    // Si viene vacío, mandamos error.
+    if ($nuevousername === '') {
+        header("Location: ../pages/perfil.php?error=empty");
+        exit;
+    }
 
-    $stmt = $conn->prepare("SELECT COUNT(username) FROM users WHERE username = ?");
-
-    // 2. Pasar el valor al parámetro "?" (la "s" es porque username es un string)
-    $stmt->bind_param("s", $nuevousername);
-
-    // 3. Ejecutar
+    // Comprobamos si ya existe otro usuario con ese username.
+    $stmt = $conn->prepare("SELECT COUNT(username) FROM users WHERE username = ? AND id != ?");
+    $stmt->bind_param("si", $nuevousername, $userId);
     $stmt->execute();
 
-    // 4. Vincular el resultado a una variable (aquí se guarda el número)
+    // Guardamos el número de coincidencias.
     $stmt->bind_result($conteo);
-
-    // 5. Capturar el valor
     $stmt->fetch();
-
-    // 6. Cerrar
     $stmt->close();
 
-
+    // Si ya existe, no dejamos actualizar.
     if ($conteo > 0) {
         header("Location: ../pages/perfil.php?error=locupado");
-        exit();
-    } else {
+        exit;
+    }
 
-        try {
-            // 3. Preparamos el UPDATE
-            $sql = "UPDATE users SET username = ? WHERE id = ?";
-            $stmt = $conn->prepare($sql);
+    try {
+        // Actualizamos el username.
+        $sql = "UPDATE users SET username = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("si", $nuevousername, $userId);
 
-            $stmt->bind_param("si", $nuevousername, $userId);
+        if ($stmt->execute()) {
 
-            if ($stmt->execute()) {
-                // Actualizamos la sesión para que el Home muestre el cambio al instante
-                $_SESSION['apodo'] = $nuevousername;
+            // Actualizamos el username en sesión.
+            $_SESSION['username'] = $nuevousername;
 
-                header("Location: ../pages/perfil.php?update=success");
-                exit;
-            }
-        } catch (mysqli_sql_exception $e) {
-            header("Location: ../pages/perfil.php?error=sql");
+            header("Location: ../pages/perfil.php?update=success");
             exit;
         }
+
+    } catch (mysqli_sql_exception $e) {
+        header("Location: ../pages/perfil.php?error=sql");
+        exit;
     }
 }
+
+
+// --------------------------------------------------
+// FUNCIÓN: ACTUALIZAR APODO
+// --------------------------------------------------
 
 function apodo($conn, $userId)
 {
+    // Recibimos el nuevo apodo.
+    $nuevoapodo = trim($_POST['apodo'] ?? '');
 
-    $nuevoapodo = $_POST['apodo'] ?? null;
-
-    if ($nuevoapodo) {
-        try {
-            // 3. Preparamos el UPDATE
-            $sql = "UPDATE users SET apodo = ? WHERE id = ?";
-            $stmt = $conn->prepare($sql);
-
-            $stmt->bind_param("si", $nuevoapodo, $userId);
-
-            if ($stmt->execute()) {
-                // Actualizamos la sesión para que el Home muestre el cambio al instante
-                $_SESSION['apodo'] = $nuevoapodo;
-
-                header("Location: ../pages/perfil.php?update=success");
-                exit;
-            }
-        } catch (mysqli_sql_exception $e) {
-            header("Location: ../pages/perfil.php?error=sql");
-            exit;
-        }
-    } else {
-        // Si por alguna razón no llegó el apodo
+    // Si viene vacío, mandamos error.
+    if ($nuevoapodo === '') {
         header("Location: ../pages/perfil.php?error=empty");
         exit;
     }
+
+    try {
+        // Actualizamos el apodo.
+        $sql = "UPDATE users SET apodo = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("si", $nuevoapodo, $userId);
+
+        if ($stmt->execute()) {
+
+            // Actualizamos el apodo en sesión.
+            $_SESSION['apodo'] = $nuevoapodo;
+
+            header("Location: ../pages/perfil.php?update=success");
+            exit;
+        }
+
+    } catch (mysqli_sql_exception $e) {
+        header("Location: ../pages/perfil.php?error=sql");
+        exit;
+    }
 }
+
+
+// --------------------------------------------------
+// FUNCIÓN: ACTUALIZAR EDAD
+// --------------------------------------------------
 
 function edad($conn, $userId)
 {
+    // Recibimos la nueva edad.
+    $nuevaedad = $_POST['edad'] ?? null;
 
-    $nuevaedad = $_POST['apodo'] ?? null;
-
-    if ($nuevaedad) {
-        try {
-            // 3. Preparamos el UPDATE
-            $sql = "UPDATE users SET edad = ? WHERE id = ?";
-            $stmt = $conn->prepare($sql);
-
-            $stmt->bind_param("si", $nuevaedad, $userId);
-
-            if ($stmt->execute()) {
-                // Actualizamos la sesión para que el Home muestre el cambio al instante
-                $_SESSION['edad'] = $nuevaedad;
-
-                header("Location: ../pages/perfil.php?update=success");
-                exit;
-            }
-        } catch (mysqli_sql_exception $e) {
-            header("Location: ../pages/perfil.php?error=sql");
-            exit;
-        }
-    } else {
-        // Si por alguna razón no llegó el apodo
+    // Validamos que sea un número.
+    if (!$nuevaedad || !is_numeric($nuevaedad)) {
         header("Location: ../pages/perfil.php?error=empty");
         exit;
     }
+
+    // Convertimos la edad a entero.
+    $nuevaedad = intval($nuevaedad);
+
+    try {
+        // Actualizamos la edad.
+        $sql = "UPDATE users SET edad = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+
+        // "i" = integer para edad.
+        // "i" = integer para id.
+        $stmt->bind_param("ii", $nuevaedad, $userId);
+
+        if ($stmt->execute()) {
+
+            // Actualizamos la edad en sesión.
+            $_SESSION['edad'] = $nuevaedad;
+
+            header("Location: ../pages/perfil.php?update=success");
+            exit;
+        }
+
+    } catch (mysqli_sql_exception $e) {
+        header("Location: ../pages/perfil.php?error=sql");
+        exit;
+    }
 }
+
+
+// --------------------------------------------------
+// FUNCIÓN: ACTUALIZAR CONTRASEÑA
+// --------------------------------------------------
 
 function psw($conn, $userId)
 {
+    // Recibimos la nueva contraseña.
+    $nuevapsw = $_POST['psw'] ?? '';
 
-    //$nuevapsw = $_POST['psw'] ?? null;
-
-    if ($nuevapsw) {
-        try {
-            // 3. Preparamos el UPDATE
-            $sql = "UPDATE users SET psw = ? WHERE id = ?";
-            $stmt = $conn->prepare($sql);
-
-            $stmt->bind_param("si", $nuevapsw, $userId);
-
-            if ($stmt->execute()) {
-                // Actualizamos la sesión para que el Home muestre el cambio al instante
-                $_SESSION['edad'] = $nuevapsw;
-
-                header("Location: ../pages/perfil.php?update=success");
-                exit;
-            }
-        } catch (mysqli_sql_exception $e) {
-            header("Location: ../pages/perfil.php?error=sql");
-            exit;
-        }
-    } else {
-        // Si por alguna razón no llegó el apodo
+    // Validamos que no venga vacía.
+    if ($nuevapsw === '') {
         header("Location: ../pages/perfil.php?error=empty");
         exit;
     }
+
+    // Creamos un hash seguro de la contraseña.
+    $hashed_psw = password_hash($nuevapsw, PASSWORD_DEFAULT);
+
+    try {
+        // Actualizamos la contraseña guardando el hash.
+        $sql = "UPDATE users SET psw = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+
+        // "s" = string para la contraseña hasheada.
+        // "i" = integer para id.
+        $stmt->bind_param("si", $hashed_psw, $userId);
+
+        if ($stmt->execute()) {
+
+            // No guardamos la contraseña en sesión.
+            // Solo redirigimos con aviso de éxito.
+            header("Location: ../pages/perfil.php?update=success");
+            exit;
+        }
+
+    } catch (mysqli_sql_exception $e) {
+        header("Location: ../pages/perfil.php?error=sql");
+        exit;
+    }
 }
+
+?>

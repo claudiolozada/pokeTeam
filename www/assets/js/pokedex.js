@@ -3,98 +3,99 @@
 // <main class="contenedor-pokemon" id="contenedorPokemon"></main>
 const contenedorPokemon = document.getElementById("contenedorPokemon");
 
-
 // Cantidad total de Pokémon que vamos a tener en cuenta.
 // Ahora mismo llega hasta Paldea.
-const cantidadPokemon = 1010;
-
+const cantidadPokemon = 1025;
 
 // Objeto con los colores principales de cada tipo Pokémon.
 // Ojo: los nombres están en inglés porque la PokeAPI devuelve los tipos en inglés.
 // Ejemplo: fire, water, grass, electric...
 const colores = {
-    grass: "#7ED978",
-    bug: "#B5D957",
-    dark: "#74717E",
-    dragon: "#3D8FE0",
-    electric: "#ece954",
-    fairy: "#F5A8EE",
-    fighting: "#E0627B",
-    fire: "#f2744a",
-    flying: "#B8CCF2",
-    ghost: "#7B86D4",
-    ground: "#c4b769",
-    ice: "#9BE3D8",
-    normal: "#BFC1BD",
-    poison: "#CA82DC",
-    psychic: "#FF5CBA",
-    rock: "#7f6e2b",
-    steel: "#78AEB9",
-    water: "#75B8F0",
+  grass: "#7ED978",
+  bug: "#B5D957",
+  dark: "#74717E",
+  dragon: "#3D8FE0",
+  electric: "#ece954",
+  fairy: "#F5A8EE",
+  fighting: "#E0627B",
+  fire: "#f2744a",
+  flying: "#B8CCF2",
+  ghost: "#7B86D4",
+  ground: "#c4b769",
+  ice: "#9BE3D8",
+  normal: "#BFC1BD",
+  poison: "#CA82DC",
+  psychic: "#FF5CBA",
+  rock: "#7f6e2b",
+  steel: "#78AEB9",
+  water: "#75B8F0",
 };
-
 
 // Objeto con las regiones Pokémon.
 // Cada región tiene un inicio y un fin.
 // Eso sirve para saber qué Pokémon cargar de la API.
 const regiones = {
-    kanto: {
-        inicio: 1,
-        fin: 151,
-    },
-    johto: {
-        inicio: 152,
-        fin: 251,
-    },
-    hoenn: {
-        inicio: 252,
-        fin: 386,
-    },
-    sinnoh: {
-        inicio: 387,
-        fin: 493,
-    },
-    unova: {
-        inicio: 494,
-        fin: 649,
-    },
-    kalos: {
-        inicio: 650,
-        fin: 721,
-    },
-    alola: {
-        inicio: 722,
-        fin: 809,
-    },
-    galar: {
-        inicio: 810,
-        fin: 898,
-    },
-    hisui: {
-        inicio: 899,
-        fin: 905,
-    },
-    paldea: {
-        inicio: 906,
-        fin: 1010,
-    },
+  kanto: {
+    inicio: 1,
+    fin: 151,
+  },
+  johto: {
+    inicio: 152,
+    fin: 251,
+  },
+  hoenn: {
+    inicio: 252,
+    fin: 386,
+  },
+  sinnoh: {
+    inicio: 387,
+    fin: 493,
+  },
+  unova: {
+    inicio: 494,
+    fin: 649,
+  },
+  kalos: {
+    inicio: 650,
+    fin: 721,
+  },
+  alola: {
+    inicio: 722,
+    fin: 809,
+  },
+  galar: {
+    inicio: 810,
+    fin: 898,
+  },
+  hisui: {
+    inicio: 899,
+    fin: 905,
+  },
+  paldea: {
+    inicio: 906,
+    fin: 1010,
+  },
+  kitakami: {
+    inicio: 1011,
+    fin: 1017,
+  },
+  indigo: {
+    inicio: 1018,
+    fin: 1025,
+  },
 };
-
 
 // Seleccionamos el loader/cargador del HTML.
 // Este es el circulito que aparece mientras se están cargando los Pokémon.
 const cargador = document.querySelector(".cargador");
 
-
 // Esta variable guarda cuál región se está cargando ahora mismo.
 // La usamos para evitar errores cuando el usuario cambia rápido de región.
 let regionActual = "";
 
-
 // Sacamos todos los nombres de los tipos que están dentro del objeto colores.
 // Esto nos sirve para saber cuál es el tipo principal del Pokémon.
 const tiposPrincipales = Object.keys(colores);
-
 
 // --------------------------------------------------
 // RUTAS DE IMÁGENES
@@ -108,40 +109,37 @@ const rutaImagenes = "../assets/img";
 // Pokéball decorativa que aparece detrás del Pokémon en la carta.
 const rutaPokeball = `${rutaImagenes}/pokeball.svg`;
 
-
 // La PokeAPI devuelve los tipos en inglés.
 // Pero tus imágenes están guardadas en español.
 // Por eso traducimos el tipo de la API al nombre real del archivo.
 const imagenesTipos = {
-    normal: "normal.png",
-    fire: "fuego.png",
-    water: "agua.png",
-    grass: "planta.png",
-    electric: "electrico.png",
-    ice: "hielo.png",
-    fighting: "lucha.png",
-    poison: "veneno.png",
-    ground: "tierra.png",
-    flying: "volador.png",
-    psychic: "psiquico.png",
-    bug: "bicho.png",
-    rock: "roca.png",
-    ghost: "fantasma.png",
-    dragon: "dragon.png",
-    dark: "siniestro.png",
-    steel: "acero.png",
-    fairy: "hada.png"
+  normal: "normal.png",
+  fire: "fuego.png",
+  water: "agua.png",
+  grass: "planta.png",
+  electric: "electrico.png",
+  ice: "hielo.png",
+  fighting: "lucha.png",
+  poison: "veneno.png",
+  ground: "tierra.png",
+  flying: "volador.png",
+  psychic: "psiquico.png",
+  bug: "bicho.png",
+  rock: "roca.png",
+  ghost: "fantasma.png",
+  dragon: "dragon.png",
+  dark: "siniestro.png",
+  steel: "acero.png",
+  fairy: "hada.png",
 };
-
 
 // Esta función recibe un tipo en inglés.
 // Ejemplo: "fire"
 // Y devuelve la ruta real de tu imagen:
 // "../assets/img/tipos/fuego.png"
 const obtenerImagenTipo = (tipo) => {
-    return `${rutaImagenes}/tipos/${imagenesTipos[tipo]}`;
+  return `${rutaImagenes}/tipos/${imagenesTipos[tipo]}`;
 };
-
 
 /*
     FUNCIÓN: cargarPokemonPorRegion(region)
@@ -161,63 +159,60 @@ const obtenerImagenTipo = (tipo) => {
     8. Quita el loader cuando termina.
 */
 const cargarPokemonPorRegion = async (region) => {
+  // Guardamos la región que el usuario quiere ver.
+  regionActual = region;
 
-    // Guardamos la región que el usuario quiere ver.
-    regionActual = region;
+  // Sacamos el número inicial y final de la región.
+  // Por ejemplo, si region = "kanto", inicio = 1 y fin = 151.
+  const { inicio, fin } = regiones[region];
 
-    // Sacamos el número inicial y final de la región.
-    // Por ejemplo, si region = "kanto", inicio = 1 y fin = 151.
-    const { inicio, fin } = regiones[region];
+  // Limpiamos el contenedor para que no se mezclen Pokémon de otra región.
+  contenedorPokemon.innerHTML = "";
 
-    // Limpiamos el contenedor para que no se mezclen Pokémon de otra región.
-    contenedorPokemon.innerHTML = "";
+  // Mostramos el loader mientras cargan los Pokémon.
+  cargador.classList.add("cargador-activo");
 
-    // Mostramos el loader mientras cargan los Pokémon.
-    cargador.classList.add("cargador-activo");
-
-    // Recorremos todos los Pokémon desde el inicio hasta el fin de la región.
-    for (let i = inicio; i <= fin; i++) {
-
-        /*
+  // Recorremos todos los Pokémon desde el inicio hasta el fin de la región.
+  for (let i = inicio; i <= fin; i++) {
+    /*
             Esto evita un bug:
             Si el usuario pulsa otra región mientras todavía se está cargando la anterior,
             la carga anterior se detiene y no sigue pintando Pokémon.
         */
-        if (regionActual !== region) {
-            return;
-        }
+    if (regionActual !== region) {
+      return;
+    }
 
-        // Convertimos el número del Pokémon en texto.
-        // Ejemplo: 25 pasa a "25".
-        const idPokemon = i.toString();
+    // Convertimos el número del Pokémon en texto.
+    // Ejemplo: 25 pasa a "25".
+    const idPokemon = i.toString();
 
-        // Creamos la URL de la PokeAPI para pedir los datos de ese Pokémon.
-        const url = `https://pokeapi.co/api/v2/pokemon/${idPokemon}`;
+    // Creamos la URL de la PokeAPI para pedir los datos de ese Pokémon.
+    const url = `https://pokeapi.co/api/v2/pokemon/${idPokemon}`;
 
-        // Hacemos la petición a la API.
-        const respuesta = await fetch(url);
+    // Hacemos la petición a la API.
+    const respuesta = await fetch(url);
 
-        // Convertimos la respuesta en datos JavaScript.
-        const datos = await respuesta.json();
+    // Convertimos la respuesta en datos JavaScript.
+    const datos = await respuesta.json();
 
-        /*
+    /*
             Volvemos a revisar si la región cambió.
             Esto es por si justo cambió mientras se hacía el fetch.
         */
-        if (regionActual !== region) {
-            return;
-        }
-
-        // Creamos la carta del Pokémon usando los datos recibidos.
-        crearTarjetaPokemon(datos);
+    if (regionActual !== region) {
+      return;
     }
 
-    // Cuando termina de cargar la misma región, quitamos el loader.
-    if (regionActual === region) {
-        cargador.classList.remove("cargador-activo");
-    }
+    // Creamos la carta del Pokémon usando los datos recibidos.
+    crearTarjetaPokemon(datos);
+  }
+
+  // Cuando termina de cargar la misma región, quitamos el loader.
+  if (regionActual === region) {
+    cargador.classList.remove("cargador-activo");
+  }
 };
-
 
 /*
     FUNCIÓN: crearTarjetaPokemon(pokemon)
@@ -233,78 +228,71 @@ const cargarPokemonPorRegion = async (region) => {
     6. Mete la carta dentro del contenedor general.
 */
 const crearTarjetaPokemon = (pokemon) => {
+  // Creamos el div principal de la carta.
+  const cartaPokemon = document.createElement("div");
 
-    // Creamos el div principal de la carta.
-    const cartaPokemon = document.createElement("div");
+  // Le agregamos la clase "carta".
+  cartaPokemon.classList.add("carta");
 
-    // Le agregamos la clase "carta".
-    cartaPokemon.classList.add("carta");
+  // Le ponemos como id el número real del Pokémon.
+  cartaPokemon.id = pokemon.id;
 
-    // Le ponemos como id el número real del Pokémon.
-    cartaPokemon.id = pokemon.id;
+  // Sacamos el nombre del Pokémon.
+  // pokemon.name viene en minúsculas desde la API.
+  let nombre = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
 
+  // Si el nombre es muy largo o tiene guiones, usamos solo la primera parte.
+  // Ejemplo: "charizard-mega-x" queda como "Charizard".
+  if (nombre.length > 9) {
+    nombre = nombre.split("-")[0];
+  }
 
-    // Sacamos el nombre del Pokémon.
-    // pokemon.name viene en minúsculas desde la API.
-    let nombre = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
+  // Formateamos el id con 3 cifras.
+  // Ejemplo:
+  // 1 -> 001
+  // 25 -> 025
+  // 150 -> 150
+  const id = pokemon.id.toString().padStart(3, "0");
 
-    // Si el nombre es muy largo o tiene guiones, usamos solo la primera parte.
-    // Ejemplo: "charizard-mega-x" queda como "Charizard".
-    if (nombre.length > 9) {
-        nombre = nombre.split("-")[0];
-    }
+  // La API da el peso en hectogramos.
+  // Dividimos entre 10 para pasarlo a kg.
+  const peso = pokemon.weight / 10 + "kg";
 
+  // La API da la altura en decímetros.
+  // Dividimos entre 10 para pasarlo a metros.
+  const altura = pokemon.height / 10 + "m";
 
-    // Formateamos el id con 3 cifras.
-    // Ejemplo:
-    // 1 -> 001
-    // 25 -> 025
-    // 150 -> 150
-    const id = pokemon.id.toString().padStart(3, "0");
+  // Sacamos todos los tipos del Pokémon.
+  // Ejemplo: Bulbasaur tiene grass y poison.
+  const tiposPokemon = pokemon.types.map((tipo) => tipo.type.name);
 
+  // Buscamos cuál de sus tipos está dentro del objeto colores.
+  // Ese será el tipo principal para pintar el fondo de la carta.
+  const tipoPrincipal = tiposPrincipales.find(
+    (tipo) => tiposPokemon.indexOf(tipo) > -1,
+  );
 
-    // La API da el peso en hectogramos.
-    // Dividimos entre 10 para pasarlo a kg.
-    const peso = pokemon.weight / 10 + "kg";
+  // Sacamos el color correspondiente a ese tipo principal.
+  const color = colores[tipoPrincipal];
 
-    // La API da la altura en decímetros.
-    // Dividimos entre 10 para pasarlo a metros.
-    const altura = pokemon.height / 10 + "m";
+  // Variables para guardar las imágenes del Pokémon.
+  let imagenFrente;
+  let imagenEspalda;
 
+  // Intentamos sacar la imagen de frente y de espalda.
+  try {
+    imagenFrente = pokemon.sprites.front_default;
+    imagenEspalda = pokemon.sprites.back_default;
+  } catch (error) {
+    // Si algo falla, usamos "#".
+    imagenFrente = "#";
+    imagenEspalda = "#";
+  }
 
-    // Sacamos todos los tipos del Pokémon.
-    // Ejemplo: Bulbasaur tiene grass y poison.
-    const tiposPokemon = pokemon.types.map((tipo) => tipo.type.name);
+  // Le ponemos a la carta el color del tipo principal.
+  cartaPokemon.style.backgroundColor = color;
 
-
-    // Buscamos cuál de sus tipos está dentro del objeto colores.
-    // Ese será el tipo principal para pintar el fondo de la carta.
-    const tipoPrincipal = tiposPrincipales.find((tipo) => tiposPokemon.indexOf(tipo) > -1);
-
-    // Sacamos el color correspondiente a ese tipo principal.
-    const color = colores[tipoPrincipal];
-
-
-    // Variables para guardar las imágenes del Pokémon.
-    let imagenFrente;
-    let imagenEspalda;
-
-    // Intentamos sacar la imagen de frente y de espalda.
-    try {
-        imagenFrente = pokemon.sprites.front_default;
-        imagenEspalda = pokemon.sprites.back_default;
-    } catch (error) {
-        // Si algo falla, usamos "#".
-        imagenFrente = "#";
-        imagenEspalda = "#";
-    }
-
-
-    // Le ponemos a la carta el color del tipo principal.
-    cartaPokemon.style.backgroundColor = color;
-
-
-    /*
+  /*
         Aquí creamos todo el HTML interno de la carta.
 
         La carta tiene dos lados:
@@ -313,7 +301,7 @@ const crearTarjetaPokemon = (pokemon) => {
 
         Luego el CSS hace que la carta gire.
     */
-    const contenidoCarta = `
+  const contenidoCarta = `
         <div class="frente lado">
 
             <div class="contenedor-imagen">
@@ -338,8 +326,8 @@ const crearTarjetaPokemon = (pokemon) => {
 
             <div class="tipos-pokemon">
                 ${tiposPokemon
-                    .map(
-                        (tipo) => `
+                  .map(
+                    (tipo) => `
                             <div class="fondo-tipo-pokemon">
                                 <!-- Imagen del tipo.
                                      La API manda el tipo en inglés.
@@ -350,9 +338,9 @@ const crearTarjetaPokemon = (pokemon) => {
                                     alt="Tipo ${tipo}"
                                 >
                             </div>
-                        `
-                    )
-                    .join("")}
+                        `,
+                  )
+                  .join("")}
             </div>
 
         </div>
@@ -392,36 +380,33 @@ const crearTarjetaPokemon = (pokemon) => {
         </div>
     `;
 
-    // Metemos el HTML dentro de la carta.
-    cartaPokemon.innerHTML = contenidoCarta;
+  // Metemos el HTML dentro de la carta.
+  cartaPokemon.innerHTML = contenidoCarta;
 
-
-    /*
+  /*
         Cuando el usuario haga click en una carta,
         abrimos la página de detalles y le pasamos el id por la URL.
 
         Ejemplo:
         details.html?id=025
     */
-    cartaPokemon.addEventListener("click", () => {
-        window.open(`pokeinfo.php?id=${id}`, "_self");
-    });
+  cartaPokemon.addEventListener("click", () => {
+    window.open(`pokeinfo.php?id=${id}`, "_self");
+  });
 
+  // Creamos un contenedor para la carta.
+  // Esto ayuda con márgenes y con el efecto hover.
+  const contenedorCarta = document.createElement("div");
 
-    // Creamos un contenedor para la carta.
-    // Esto ayuda con márgenes y con el efecto hover.
-    const contenedorCarta = document.createElement("div");
+  // Le agregamos su clase CSS.
+  contenedorCarta.classList.add("contenedor-carta");
 
-    // Le agregamos su clase CSS.
-    contenedorCarta.classList.add("contenedor-carta");
+  // Metemos la carta dentro de su contenedor.
+  contenedorCarta.appendChild(cartaPokemon);
 
-    // Metemos la carta dentro de su contenedor.
-    contenedorCarta.appendChild(cartaPokemon);
-
-    // Finalmente metemos todo en el contenedor principal.
-    contenedorPokemon.appendChild(contenedorCarta);
+  // Finalmente metemos todo en el contenedor principal.
+  contenedorPokemon.appendChild(contenedorCarta);
 };
-
 
 /*
     FUNCIÓN: activarCambioDeRegion()
@@ -431,48 +416,41 @@ const crearTarjetaPokemon = (pokemon) => {
     se cargan los Pokémon correspondientes a esa región.
 */
 const activarCambioDeRegion = () => {
+  // Seleccionamos el contenedor donde están todos los botones de región.
+  const selectorRegion = document.getElementById("selectorRegion");
 
-    // Seleccionamos el contenedor donde están todos los botones de región.
-    const selectorRegion = document.getElementById("selectorRegion");
+  // Escuchamos clicks dentro del selector de regiones.
+  selectorRegion.addEventListener("click", (event) => {
+    // Sacamos el valor de data-value del botón pulsado.
+    // Ejemplo: "kanto", "johto", "hoenn".
+    const regionSeleccionada = event.target.getAttribute("data-value");
 
-    // Escuchamos clicks dentro del selector de regiones.
-    selectorRegion.addEventListener("click", (event) => {
+    // Buscamos cuál región está activa ahora mismo.
+    const regionActiva = document.querySelector(".activo");
 
-        // Sacamos el valor de data-value del botón pulsado.
-        // Ejemplo: "kanto", "johto", "hoenn".
-        const regionSeleccionada = event.target.getAttribute("data-value");
+    // Si el usuario pulsa la misma región que ya está activa, no hacemos nada.
+    if (event.target.classList.contains("activo")) {
+      return;
+    }
 
-        // Buscamos cuál región está activa ahora mismo.
-        const regionActiva = document.querySelector(".activo");
+    // Si realmente se pulsó una región válida...
+    if (regionSeleccionada) {
+      // Limpiamos los Pokémon actuales.
+      contenedorPokemon.innerHTML = "";
 
+      // Cargamos los Pokémon de la nueva región.
+      cargarPokemonPorRegion(regionSeleccionada);
 
-        // Si el usuario pulsa la misma región que ya está activa, no hacemos nada.
-        if (event.target.classList.contains("activo")) {
-            return;
-        }
+      // Quitamos la clase activo de la región anterior.
+      if (regionActiva) {
+        regionActiva.classList.remove("activo");
+      }
 
-
-        // Si realmente se pulsó una región válida...
-        if (regionSeleccionada) {
-
-            // Limpiamos los Pokémon actuales.
-            contenedorPokemon.innerHTML = "";
-
-            // Cargamos los Pokémon de la nueva región.
-            cargarPokemonPorRegion(regionSeleccionada);
-
-
-            // Quitamos la clase activo de la región anterior.
-            if (regionActiva) {
-                regionActiva.classList.remove("activo");
-            }
-
-            // Ponemos la clase activo en la nueva región seleccionada.
-            event.target.classList.add("activo");
-        }
-    });
+      // Ponemos la clase activo en la nueva región seleccionada.
+      event.target.classList.add("activo");
+    }
+  });
 };
-
 
 /*
     FUNCIÓN: buscarPokemon()
@@ -488,34 +466,31 @@ const activarCambioDeRegion = () => {
     6. Muestra las que sí coinciden.
 */
 function buscarPokemon() {
+  // Sacamos el texto del input buscador.
+  let textoBuscado = document.getElementById("buscador").value;
 
-    // Sacamos el texto del input buscador.
-    let textoBuscado = document.getElementById("buscador").value;
+  // Convertimos todo a minúsculas.
+  textoBuscado = textoBuscado.toLowerCase();
 
-    // Convertimos todo a minúsculas.
-    textoBuscado = textoBuscado.toLowerCase();
+  // Quitamos todos los espacios.
+  textoBuscado = textoBuscado.replace(/\s+/g, "");
 
-    // Quitamos todos los espacios.
-    textoBuscado = textoBuscado.replace(/\s+/g, "");
+  // Guardamos todas las cartas.
+  const cartas = document.getElementsByClassName("contenedor-carta");
 
-    // Guardamos todas las cartas.
-    const cartas = document.getElementsByClassName("contenedor-carta");
-
-    // Recorremos todas las cartas.
-    for (let i = 0; i < cartas.length; i++) {
-
-        // Si la carta NO contiene lo que se escribió, se oculta.
-        if (!cartas[i].innerHTML.toLowerCase().includes(textoBuscado)) {
-            cartas[i].style.display = "none";
-        }
-
-        // Si la carta SÍ contiene lo que se escribió, se muestra.
-        else {
-            cartas[i].style.display = "block";
-        }
+  // Recorremos todas las cartas.
+  for (let i = 0; i < cartas.length; i++) {
+    // Si la carta NO contiene lo que se escribió, se oculta.
+    if (!cartas[i].innerHTML.toLowerCase().includes(textoBuscado)) {
+      cartas[i].style.display = "none";
     }
-}
 
+    // Si la carta SÍ contiene lo que se escribió, se muestra.
+    else {
+      cartas[i].style.display = "block";
+    }
+  }
+}
 
 /*
     BOTÓN SUBIR
@@ -524,39 +499,36 @@ function buscarPokemon() {
     cuando el usuario baja un poco haciendo scroll.
 */
 window.addEventListener("scroll", function () {
+  // Seleccionamos el botón subir.
+  const botonSubir = document.getElementById("botonSubir");
 
-    // Seleccionamos el botón subir.
-    const botonSubir = document.getElementById("botonSubir");
+  // Si el botón no existe, evitamos errores.
+  if (!botonSubir) {
+    return;
+  }
 
-    // Si el botón no existe, evitamos errores.
-    if (!botonSubir) {
-        return;
-    }
+  // Si el usuario bajó más de 100px, mostramos el botón.
+  if (window.scrollY > 100) {
+    botonSubir.style.display = "block";
+  }
 
-    // Si el usuario bajó más de 100px, mostramos el botón.
-    if (window.scrollY > 100) {
-        botonSubir.style.display = "block";
-    }
-
-    // Si está arriba del todo, lo ocultamos.
-    else {
-        botonSubir.style.display = "none";
-    }
+  // Si está arriba del todo, lo ocultamos.
+  else {
+    botonSubir.style.display = "none";
+  }
 });
-
 
 // Cuando se hace click en el botón subir, vuelve arriba con animación suave.
 const botonSubir = document.getElementById("botonSubir");
 
 if (botonSubir) {
-    botonSubir.addEventListener("click", function () {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
+  botonSubir.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
     });
+  });
 }
-
 
 /*
     BOTÓN BAJAR
@@ -565,39 +537,36 @@ if (botonSubir) {
     Ahora mismo aparece también cuando el usuario baja más de 100px.
 */
 window.addEventListener("scroll", function () {
+  // Seleccionamos el botón bajar.
+  const botonBajar = document.getElementById("botonBajar");
 
-    // Seleccionamos el botón bajar.
-    const botonBajar = document.getElementById("botonBajar");
+  // Si el botón no existe, evitamos errores.
+  if (!botonBajar) {
+    return;
+  }
 
-    // Si el botón no existe, evitamos errores.
-    if (!botonBajar) {
-        return;
-    }
+  // Si el usuario bajó más de 100px, mostramos el botón.
+  if (window.scrollY > 100) {
+    botonBajar.style.display = "block";
+  }
 
-    // Si el usuario bajó más de 100px, mostramos el botón.
-    if (window.scrollY > 100) {
-        botonBajar.style.display = "block";
-    }
-
-    // Si está arriba del todo, lo ocultamos.
-    else {
-        botonBajar.style.display = "none";
-    }
+  // Si está arriba del todo, lo ocultamos.
+  else {
+    botonBajar.style.display = "none";
+  }
 });
-
 
 // Cuando se hace click en el botón bajar, baja hasta el final de la página.
 const botonBajar = document.getElementById("botonBajar");
 
 if (botonBajar) {
-    botonBajar.addEventListener("click", function () {
-        window.scrollTo({
-            top: 999999,
-            behavior: "smooth",
-        });
+  botonBajar.addEventListener("click", function () {
+    window.scrollTo({
+      top: 999999,
+      behavior: "smooth",
     });
+  });
 }
-
 
 /*
     MODO OSCURO
@@ -611,17 +580,15 @@ if (botonBajar) {
 const botonModoOscuro = document.getElementById("botonModoOscuro");
 
 if (botonModoOscuro) {
-    botonModoOscuro.addEventListener("click", () => {
+  botonModoOscuro.addEventListener("click", () => {
+    // Activa o desactiva la clase modo-oscuro en el body.
+    document.body.classList.toggle("modo-oscuro");
 
-        // Activa o desactiva la clase modo-oscuro en el body.
-        document.body.classList.toggle("modo-oscuro");
-
-        // Cambia el icono del switch.
-        botonModoOscuro.classList.toggle("fa-toggle-off");
-        botonModoOscuro.classList.toggle("fa-toggle-on");
-    });
+    // Cambia el icono del switch.
+    botonModoOscuro.classList.toggle("fa-toggle-off");
+    botonModoOscuro.classList.toggle("fa-toggle-on");
+  });
 }
-
 
 /*
     INICIO DE LA PÁGINA

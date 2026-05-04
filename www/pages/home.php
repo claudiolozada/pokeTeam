@@ -1,8 +1,5 @@
 <?php
-//session_start();
-//
-//$username = $_SESSION['username'] ?? 'Entrenador';
-//$avatar = $_SESSION['avatar'] ?? 'img/default-avatar.png';
+
  include '../includes/navbar.php'; 
 ?>
 

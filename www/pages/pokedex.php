@@ -18,7 +18,7 @@ include '../includes/navbar.php';
 </head>
 
 <body>
-    <div id="pagina">
+    <div class="espacionv">
         <section class="zona-controles-pokedex">
             <div class="caja-buscador">
                 <input
@@ -36,37 +36,43 @@ include '../includes/navbar.php';
             </div>
         </section>
 
-        <div class="selector-regiones">
-            <div class="regiones" id="selectorRegion">
-                <span data-value="kanto" class="activo valor-region">Kanto</span>
-                <span data-value="johto" class="valor-region">Johto</span>
-                <span data-value="hoenn" class="valor-region">Hoenn</span>
-                <span data-value="sinnoh" class="valor-region">Sinnoh</span>
-                <span data-value="unova" class="valor-region">Unova</span>
-                <span data-value="kalos" class="valor-region">Kalos</span>
-                <span data-value="alola" class="valor-region">Alola</span>
-                <span data-value="galar" class="valor-region">Galar</span>
-                <span data-value="hisui" class="valor-region">Hisui</span>
-                <span data-value="paldea" class="valor-region">Paldea</span>
-            </div>
+    </div>
+
+    </section>
+    <div class="selector-regiones">
+        <div class="regiones" id="selectorRegion">
+            <span data-value="kanto" class="activo valor-region">Kanto</span>
+            <span data-value="johto" class="valor-region">Johto</span>
+            <span data-value="hoenn" class="valor-region">Hoenn</span>
+            <span data-value="sinnoh" class="valor-region">Sinnoh</span>
+            <span data-value="unova" class="valor-region">Unova</span>
+            <span data-value="kalos" class="valor-region">Kalos</span>
+            <span data-value="alola" class="valor-region">Alola</span>
+            <span data-value="galar" class="valor-region">Galar</span>
+            <span data-value="hisui" class="valor-region">Hisui</span>
+            <span data-value="paldea" class="valor-region">Paldea</span>
+            <span data-value="kitakami" class="valor-region">Kitakami</span>
+            <span data-value="indigo" class="valor-region">Indigo</span>
         </div>
 
-        <main class="contenedor-pokemon" id="contenedorPokemon"></main>
+    </div>
 
-        <div class="cargador">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
+    <main class="contenedor-pokemon" id="contenedorPokemon"></main>
 
-        <button id="botonSubir">
-            <i class="fas fa-chevron-up"></i>
-        </button>
+    <div class="cargador">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
 
-        <button id="botonBajar">
-            <i class="fas fa-chevron-down"></i>
-        </button>
+    <button id="botonSubir">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <button id="botonBajar">
+        <i class="fas fa-chevron-down"></i>
+    </button>
     </div>
 
     <script

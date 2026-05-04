@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 if (!isset($_SESSION['user_id'])) {
     // Si no hay sesión, mandarlo al login
-    header("Location: login.php");
+    header("Location: login.php?error=sinsesion");
     exit;
 }
 ?>

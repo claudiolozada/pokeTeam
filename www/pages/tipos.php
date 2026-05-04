@@ -6,17 +6,17 @@ $tipos = [
     ['nombre' => 'Fuego',     'archivo' => 'fuego.png',     'clase' => 'fuego'],
     ['nombre' => 'Agua',      'archivo' => 'agua.png',      'clase' => 'agua'],
     ['nombre' => 'Planta',    'archivo' => 'planta.png',    'clase' => 'planta'],
-    ['nombre' => 'Eléctrico', 'archivo' => 'electrico.png', 'clase' => 'electrico'],
+    ['nombre' => 'Electrico', 'archivo' => 'electrico.png', 'clase' => 'electrico'],
     ['nombre' => 'Hielo',     'archivo' => 'hielo.png',     'clase' => 'hielo'],
     ['nombre' => 'Lucha',     'archivo' => 'lucha.png',     'clase' => 'lucha'],
     ['nombre' => 'Veneno',    'archivo' => 'veneno.png',    'clase' => 'veneno'],
     ['nombre' => 'Tierra',    'archivo' => 'tierra.png',    'clase' => 'tierra'],
     ['nombre' => 'Volador',   'archivo' => 'volador.png',   'clase' => 'volador'],
-    ['nombre' => 'Psíquico',  'archivo' => 'psiquico.png',  'clase' => 'psiquico'],
+    ['nombre' => 'Psiquico',  'archivo' => 'psiquico.png',  'clase' => 'psiquico'],
     ['nombre' => 'Bicho',     'archivo' => 'bicho.png',     'clase' => 'bicho'],
     ['nombre' => 'Roca',      'archivo' => 'roca.png',      'clase' => 'roca'],
     ['nombre' => 'Fantasma',  'archivo' => 'fantasma.png',  'clase' => 'fantasma'],
-    ['nombre' => 'Dragón',    'archivo' => 'dragon.png',    'clase' => 'dragon'],
+    ['nombre' => 'Dragon',    'archivo' => 'dragon.png',    'clase' => 'dragon'],
     ['nombre' => 'Siniestro', 'archivo' => 'siniestro.png', 'clase' => 'siniestro'],
     ['nombre' => 'Acero',     'archivo' => 'acero.png',     'clase' => 'acero'],
     ['nombre' => 'Hada',      'archivo' => 'hada.png',      'clase' => 'hada']
@@ -52,7 +52,7 @@ $tipos = [
                 <?php foreach ($tipos as $tipo): ?>
 
                     <a 
-                        href="detalle-tipo.php?tipo=<?php echo urlencode($tipo['clase']); ?>" 
+                        href="tiposinfo.php?tipo=<?php echo urlencode($tipo['clase']); ?>" 
                         class="tarjeta-tipo tipo-<?php echo htmlspecialchars($tipo['clase']); ?>"
                     >
 

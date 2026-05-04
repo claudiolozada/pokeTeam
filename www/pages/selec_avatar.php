@@ -49,5 +49,5 @@
     </main>
 
 </body>
-
+<?php include '../includes/infoerror.php'; ?>
 </html>
