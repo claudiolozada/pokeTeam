@@ -11,7 +11,7 @@ require_once '../includes/navbar.php';
     <title>Equipo Pokémon | PokeTeam</title>
 
     <link rel="stylesheet" href="../assets/css/equipo.css">
-
+    <script src="../assets/js/equipo.js" defer></script>
     <?php include '../includes/metas.php'; ?>
 </head>
 
@@ -50,33 +50,33 @@ require_once '../includes/navbar.php';
         <div class="linea-separadora"></div>
 
         <!-- Zona de tarjetas del equipo -->
-        <section class="zona-lista-equipo">
+        <section id="zona-lista-equipo">
 
             <h1>Equipo Pokemon</h1>
 
             <div class="grid-equipo">
 
-                <div class="slot-pokemon">
+                <div id="1" class="slot-pokemon">
                     <span>+</span>
                 </div>
 
-                <div class="slot-pokemon">
+                <div id="2" class="slot-pokemon">
                     <span>+</span>
                 </div>
 
-                <div class="slot-pokemon">
+                <div id="3" class="slot-pokemon">
                     <span>+</span>
                 </div>
 
-                <div class="slot-pokemon">
+                <div id="4" class="slot-pokemon">
                     <span>+</span>
                 </div>
 
-                <div class="slot-pokemon">
+                <div id="5" class="slot-pokemon">
                     <span>+</span>
                 </div>
 
-                <div class="slot-pokemon">
+                <div id="6" class="slot-pokemon">
                     <span>+</span>
                 </div>
 

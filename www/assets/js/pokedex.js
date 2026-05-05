@@ -3,6 +3,7 @@
 // <main class="contenedor-pokemon" id="contenedorPokemon"></main>
 const contenedorPokemon = document.getElementById("contenedorPokemon");
 
+
 // Cantidad total de Pokémon que vamos a tener en cuenta.
 // Ahora mismo llega hasta Paldea.
 const cantidadPokemon = 1025;
@@ -102,15 +103,13 @@ const tiposPrincipales = Object.keys(colores);
 // --------------------------------------------------
 
 // Ruta base donde están tus imágenes.
-// Si este archivo está dentro de una carpeta como pages/, deja "../assets/img".
-// Si tu archivo está en la raíz del proyecto, cámbialo por "assets/img".
 const rutaImagenes = "../assets/img";
 
 // Pokéball decorativa que aparece detrás del Pokémon en la carta.
 const rutaPokeball = `${rutaImagenes}/pokeball.svg`;
 
 // La PokeAPI devuelve los tipos en inglés.
-// Pero tus imágenes están guardadas en español.
+// Pero las imágenes están guardadas en español.
 // Por eso traducimos el tipo de la API al nombre real del archivo.
 const imagenesTipos = {
   normal: "normal.png",
@@ -135,7 +134,7 @@ const imagenesTipos = {
 
 // Esta función recibe un tipo en inglés.
 // Ejemplo: "fire"
-// Y devuelve la ruta real de tu imagen:
+// Y devuelve la ruta real de la imagen:
 // "../assets/img/tipos/fuego.png"
 const obtenerImagenTipo = (tipo) => {
   return `${rutaImagenes}/tipos/${imagenesTipos[tipo]}`;

@@ -33,6 +33,10 @@ if (isset($_GET['error'])) {
             $mensaje = "Ese nombre de usuario ya está en uso. Elige otro.";
             break;
 
+            case 'equipo_lleno':
+            $mensaje = "el equipo esta completo! livera un pokemon y vuelve a intentarlo";
+            break;
+
         case 'denegado':
             $mensaje = "Acceso no permitido. Inicia sesión antes de entrar.";
             break;
@@ -75,15 +79,20 @@ if (isset($_GET['error'])) {
     // perfil.php?update=success
     //
     // Si existe $_GET['update'], mostramos un aviso normal.
-} else if (isset($_GET['update'])) {
+} else if (isset($_GET['update'])||isset($_GET['success'])) {
 
     // Título principal cuando no es error, sino aviso.
     $titulo_aviso = "¡AVISO!";
 
-    switch ($_GET['update']) {
+    $accion = $_GET['update'] ?? $_GET['success'];
+    switch ($accion) {
 
         case 'success':
             $mensaje = "Cambios realizados exitosamente.";
+            break;
+
+            case 'agregado':
+            $mensaje = "se a agregado un nuevo pokemon a tu equipo!!";
             break;
 
         case 'new':

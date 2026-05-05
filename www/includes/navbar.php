@@ -58,7 +58,36 @@ $apodo = $usuario['apodo'] ?? $nombre;
 // Si no tiene edad guardada, mostramos "desconocida".
 $edad = $usuario['edad'] ?? "desconocida";
 
+//revisamos el equipo pokemon
+
+// 1. Consulta para obtener el equipo ordenado por posición
+$stmtEquipo = $conn->prepare("SELECT pokemon_id, poke_apodo, posicion_num FROM equipo_pokemon WHERE user_id = ? ORDER BY posicion_num ASC");
+$stmtEquipo->bind_param("i", $userId);
+$stmtEquipo->execute();
+$result = $stmtEquipo->get_result();
+
+// 2. Guardamos los Pokémon en un array
+$equipo = [];
+while ($row = $result->fetch_assoc()) {
+    $equipo[] = $row;
+}
+
+// 3. Contamos cuántos Pokémon hay en el equipo
+$cantidadPokemones = count($equipo);
+
+// Datos del primer Pokémon (Posición 0)
+// "ID: " . $equipo[0]['pokemon_id'];
+// " Apodo: " . $equipo[0]['poke_apodo'];
+
 ?>
+
+<script>
+    // lo combertimos en variables globales para usarlo en el codigo
+    // Pasamos todo el array de objetos
+    const miEquipo = <?php echo json_encode($equipo); ?>;
+    const cantEquipoPoke = miEquipo.length; // JS ya puede contar el array
+</script>
+
 
 <!-- CSS y JavaScript  -->
 <link rel="stylesheet" href="../assets/css/navbar.css">

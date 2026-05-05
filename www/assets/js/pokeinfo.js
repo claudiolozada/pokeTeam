@@ -12,6 +12,9 @@ const params = new URLSearchParams(window.location.search);
 // Si viene "25", id será 25.
 const id = parseInt(params.get("id"));
 
+//la cantidad de pokemons que hay en mi equipo
+const cantequipo = miEquipo.length; // es una bariable gloval q saque del div
+
 // --------------------------------------------------
 // 2. COLORES SEGÚN EL TIPO DEL POKÉMON
 // --------------------------------------------------
@@ -195,6 +198,9 @@ const displayPokemonDetails = async (pokemon) => {
   // ID con 3 cifras.
   const idFormateado = pokemon[0].id.toString().padStart(3, "0");
 
+  // ID normal
+  const idNormal = pokemon[0].id;
+
   // Imagen Dream World.
   const imageSrc = pokemon[0].sprites.other.dream_world.front_default;
 
@@ -247,41 +253,51 @@ const displayPokemonDetails = async (pokemon) => {
 
   const pokemonDetailsEl = document.getElementById("pokemon-details");
 
-  pokemonDetailsEl.innerHTML = `
-        <div class="btn">
-            <button class="previousBtn" onclick="backButton()">
-                <i class="fas fa-chevron-left"></i>
-            </button>
+// 1. Definimos qué contenido extra vamos a mostrar según la condición
+let contenidoExtra = "";
 
-            <button class="nextBtn" onclick="nextPokemon()">
-                <i class="fas fa-chevron-right"></i>
-            </button>
+if (cantequipo < 6) { // Aquí pondrías tu variable cantEquipoPoke
+    contenidoExtra = `
+        <form action="addpoke.php" method="POST">
+        <input type="hidden" name="add" value="${idNormal}">
+        <button type="submit" class="addpoke">AGREGAR AL EQUIPO</button>
+        </form>`;
+} else {
+    contenidoExtra = `<div class="japaneseName">${japaneseName}</div>`;
+}
+
+// 2. Insertamos todo el HTML junto
+pokemonDetailsEl.innerHTML = `
+    <div class="btn">
+        <button class="previousBtn" onclick="backButton()">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <button class="nextBtn" onclick="nextPokemon()">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <div class="names">
+        ${contenidoExtra}
+        <div class="name">${name}</div>
+    </div>
+
+    <div class="top">
+        <div class="image">
+            <img 
+                class="imgFront" 
+                src="${imageSrc == null ? imageSrc2 : imageSrc}" 
+                alt="${name}"
+            >
+            <img 
+                class="imgBack" 
+                src="${rutaPokeball}" 
+                alt="Pokéball"
+            >
         </div>
-
-        <div class="names">
-            <div class="japaneseName">${japaneseName}</div>
-            <div class="name">${name}</div>
-        </div>
-
-        <div class="top">
-            <div class="image">
-                <img 
-                    class="imgFront" 
-                    src="${imageSrc == null ? imageSrc2 : imageSrc}" 
-                    alt="${name}"
-                >
-
-                <!-- Pokéball decorativa.
-                     Ahora está dentro de assets/img/pokeball.svg.
-                     La ruta viene de la variable rutaPokeball. -->
-                <img 
-                    class="imgBack" 
-                    src="${rutaPokeball}" 
-                    alt="Pokéball"
-                >
-            </div>
-        </div>
-    `;
+    </div>
+`;
 
   // --------------------------------------------------
   // 5.2 DESCRIPCIÓN Y CLASIFICACIÓN EN ESPAÑOL
@@ -353,8 +369,8 @@ const displayPokemonDetails = async (pokemon) => {
 
             <div class="types">
                 ${poke_types
-                  .map(
-                    (type) => `
+      .map(
+        (type) => `
                             <div class="poke__type__bg">
                                 <!-- Imagen del tipo.
                                      La API manda el tipo en inglés.
@@ -366,8 +382,8 @@ const displayPokemonDetails = async (pokemon) => {
                                 >
                             </div>
                         `,
-                  )
-                  .join("")}
+      )
+      .join("")}
             </div>
 
         </div>

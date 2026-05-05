@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Jersey+25&display=swap");
 
 /* ===== RESET BÁSICO ===== */
 * {
@@ -7,17 +8,16 @@
     padding: 0;
 }
 
-/* ===== BODY ===== */
+/* ===== BODY (Tus fondos y estilos originales) ===== */
 body {
     min-height: 100vh;
     color: #fff;
-
+    font-family: 'Press Start 2P', 'Courier New', monospace;
     background:
         radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.18) 0 70px, transparent 72px),
         radial-gradient(circle at 85% 75%, rgba(0, 0, 0, 0.16) 0 120px, transparent 122px),
         radial-gradient(circle at 75% 18%, rgba(255, 220, 0, 0.22) 0 55px, transparent 57px),
         linear-gradient(135deg, #e3350d 0%, #c72808 45%, #8f1b08 100%);
-
     background-attachment: fixed;
 }
 
@@ -27,11 +27,9 @@ body::before {
     inset: 0;
     pointer-events: none;
     z-index: -1;
-
     background-image:
         linear-gradient(rgba(255, 255, 255, 0.05) 2px, transparent 2px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.05) 2px, transparent 2px);
-
     background-size: 45px 45px;
 }
 
@@ -39,285 +37,329 @@ body::before {
 .contenedor-equipo {
     width: 100%;
     min-height: calc(100vh - 75px);
-
     padding: 35px 60px 50px;
-
-    font-family: 'Press Start 2P', 'Courier New', monospace;
 }
 
-/* ===== ZONA DEL ENTRENADOR Y POKÉMON ===== */
+/* ===== ESCENARIO ENTRENADOR (Tu diseño de vista previa) ===== */
 .zona-entrenador-equipo {
     width: 100%;
-
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Caja principal de visualización */
 .escenario-equipo {
     width: 100%;
     max-width: 900px;
-
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
-/* Este div es el espacio donde irá el entrenador con los Pokémon alrededor */
 .vista-entrenador-pokemon {
     position: relative;
-
     width: 100%;
     max-width: 760px;
     height: 280px;
-
-    background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.08)),
-        #3b3b3b;
-
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.08)), #3b3b3b;
     border: 5px solid #222;
     border-radius: 24px;
-
     box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.35);
-
     overflow: hidden;
 }
 
-/* Suelo falso para visualizar la base */
 .vista-entrenador-pokemon::after {
     content: "";
     position: absolute;
-    left: 0;
-    bottom: 0;
-
-    width: 100%;
-    height: 75px;
-
+    left: 0; bottom: 0;
+    width: 100%; height: 75px;
     background: rgba(0, 0, 0, 0.22);
     border-top: 4px solid rgba(255, 255, 255, 0.18);
 }
 
-/* Avatar del entrenador */
 .entrenador-equipo {
     position: absolute;
-    left: 50%;
-    bottom: 25px;
+    left: 50%; bottom: 25px;
     transform: translateX(-50%);
-
     height: 190px;
     z-index: 5;
-
     image-rendering: pixelated;
     filter: drop-shadow(5px 5px 0 rgba(0, 0, 0, 0.35));
 }
 
-/* Cuadros temporales para visualizar posiciones futuras de Pokémon */
 .pokemon-alrededor {
     position: absolute;
-
-    width: 70px;
-    height: 70px;
-
+    width: 70px; height: 70px;
     background-color: rgba(255, 255, 255, 0.25);
     border: 4px dashed rgba(255, 255, 255, 0.6);
     border-radius: 18px;
-
     z-index: 4;
 }
 
-/* Posiciones provisionales */
-.pokemon-1 {
-    left: 18%;
-    bottom: 45px;
-}
+.pokemon-1 { left: 18%; bottom: 45px; }
+.pokemon-2 { right: 18%; bottom: 45px; }
+.pokemon-3 { left: 32%; bottom: 115px; width: 55px; height: 55px; z-index: 3;}
+.pokemon-4 { right: 32%; bottom: 115px; width: 55px; height: 55px; z-index: 3;}
+.pokemon-5 { left: 8%; bottom: 95px; width: 55px; height: 55px; z-index: 3;}
+.pokemon-6 { right: 8%; bottom: 95px; width: 55px; height: 55px; z-index: 3;}
 
-.pokemon-2 {
-    right: 18%;
-    bottom: 45px;
-}
+/* ===== ELEMENTOS FALTANTES DEL HTML ===== */
 
-.pokemon-3 {
-    left: 32%;
-    bottom: 115px;
-
-    width: 55px;
-    height: 55px;
-
-    z-index: 3;
-}
-
-.pokemon-4 {
-    right: 32%;
-    bottom: 115px;
-
-    width: 55px;
-    height: 55px;
-
-    z-index: 3;
-}
-
-.pokemon-5 {
-    left: 8%;
-    bottom: 95px;
-
-    width: 55px;
-    height: 55px;
-
-    z-index: 3;
-}
-
-.pokemon-6 {
-    right: 8%;
-    bottom: 95px;
-
-    width: 55px;
-    height: 55px;
-
-    z-index: 3;
-}
-
-/* ===== LÍNEA SEPARADORA ===== */
+/* Línea divisoria entre el escenario y la lista */
 .linea-separadora {
     width: 100%;
     max-width: 950px;
     height: 5px;
-
     margin: 35px auto 30px;
-
     background-color: #222;
     border-radius: 20px;
-
     box-shadow: 0 5px 0 rgba(0, 0, 0, 0.25);
 }
 
-/* ===== ZONA EQUIPO POKÉMON ===== */
-.zona-lista-equipo {
+/* Título de la sección de tarjetas */
+#zona-lista-equipo h1 {
+    margin-bottom: 28px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 18px;
+    text-transform: uppercase;
+    text-shadow: 4px 4px 0 #222, 6px 6px 0 rgba(0, 0, 0, 0.35);
+    color: #fff;
+}
+
+/* Estilos para los iconos de tipo dentro de las tarjetas */
+.fondo-tipo-pokemon img {
+    width: 38px;
+    height: 38px;
+    filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.2));
+}
+
+/* Ajuste de profundidad para los espacios de la vista previa */
+.pokemon-3, .pokemon-4, .pokemon-5, .pokemon-6 {
+    z-index: 3;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Forzar que el texto del número use tu fuente de datos */
+.numero-pokemon {
+    font-family: "Jersey 25", sans-serif;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+/* ===== GRID DE EQUIPO ===== */
+#zona-lista-equipo {
     width: 100%;
     max-width: 950px;
-
     margin: 0 auto;
     text-align: center;
 }
 
-.zona-lista-equipo h1 {
+#zona-lista-equipo h1 {
     margin-bottom: 28px;
-
-    color: white;
     font-size: 18px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-
-    text-shadow:
-        4px 4px 0 #222,
-        6px 6px 0 rgba(0, 0, 0, 0.35);
+    text-shadow: 4px 4px 0 #222, 6px 6px 0 rgba(0, 0, 0, 0.35);
 }
 
-/* Grid de 6 espacios: 3 arriba y 3 abajo */
 .grid-equipo {
     display: grid;
     grid-template-columns: repeat(3, 210px);
     justify-content: center;
     gap: 26px;
 }
-
-/* Espacios vacíos del equipo estilo carta */
-.slot-pokemon {
-    min-height: 230px;
-    max-width: 210px;
+/* Ajuste imponente para los Pokémon del escenario */
+.img-escenario-pixel {
     width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+    
+    /* Escalamos a 2.5 veces su tamaño original */
+    /* Usamos translateZ(0) para mejorar el renderizado en algunos navegadores */
+    transform: scale(2.5) translateZ(0); 
+    transform-origin: bottom center;
+    
+    filter: drop-shadow(6px 6px 0 rgba(0, 0, 0, 0.3));
+    animation: flotarGrande 3s ease-in-out infinite;
+    z-index: 10;
+    position: relative;
+}
 
-    margin: 0 auto;
+/* Para los que están en la fila de atrás (posiciones 3 a 6) */
+/* Los dejamos un poco más pequeños para mantener la perspectiva de profundidad */
+.pokemon-3 .img-escenario-pixel, 
+.pokemon-4 .img-escenario-pixel,
+.pokemon-5 .img-escenario-pixel,
+.pokemon-6 .img-escenario-pixel {
+    transform: scale(1.9) translateZ(0);
+    animation: flotarFondoGrande 3s ease-in-out infinite;
+}
 
+/* Animación de flote para los de adelante */
+@keyframes flotarGrande {
+    0%, 100% { transform: translateY(0) scale(2.5); }
+    50% { transform: translateY(-12px) scale(2.5); }
+}
+
+/* Animación de flote para los de atrás */
+@keyframes flotarFondoGrande {
+    0%, 100% { transform: translateY(0) scale(1.9); }
+    50% { transform: translateY(-7px) scale(1.9); }
+}
+
+/* IMPORTANTE: Asegúrate de que los contenedores permitan ver el escalado */
+.pokemon-alrededor {
+    overflow: visible !important; /* Permite que el Pokémon "salga" del cuadrito */
+}
+
+/* Ajuste de la animación para los del fondo para que no pierdan su escala */
+.pokemon-3 .img-escenario-pixel, .pokemon-4 .img-escenario-pixel, 
+.pokemon-5 .img-escenario-pixel, .pokemon-6 .img-escenario-pixel {
+    animation: flotarFondo 3s ease-in-out infinite;
+}
+
+@keyframes flotarFondo {
+    0%, 100% { transform: translateY(0) scale(1.4); }
+    50% { transform: translateY(-5px) scale(1.4); }
+}
+/* ===== SLOT VACÍO (Mantenemos tu estilo de degradado gris) ===== */
+.slot-pokemon {
+    min-height: 330px;
+    width: 210px;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(216, 216, 216, 0.72),
-            rgba(159, 159, 159, 0.62)
-        );
-
+    background: linear-gradient(145deg, rgba(216, 216, 216, 0.72), rgba(159, 159, 159, 0.62));
     border: 5px solid #222;
     border-radius: 22px;
-
     box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.35);
+    transition: transform 0.18s ease;
+}
 
-    transition:
-        transform 0.18s ease,
-        box-shadow 0.18s ease,
-        background-color 0.18s ease;
+.slot-pokemon:hover {
+    transform: scale(1.04);
+    cursor: pointer;
 }
 
 .slot-pokemon span {
     color: #555;
     font-size: 42px;
-    line-height: 1;
-
-    text-shadow:
-        2px 2px 0 rgba(255, 255, 255, 0.6);
+    text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.6);
 }
 
-/* Hover para que parezca seleccionable */
-.slot-pokemon:hover {
-    transform: scale(1.04);
-    box-shadow: 9px 9px 0 rgba(0, 0, 0, 0.42);
+/* ===== ESTILOS DE LA CARTA (Cuando hay Pokémon) ===== */
+.contenedor-carta {
+    width: 100%;
+    height: 100%;
+    perspective: 150rem;
+}
 
-    cursor: pointer;
+.carta {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    text-align: center;
+    transform-style: preserve-3d;
+    transition: 0.25s ease-in;
+    position: relative;
+    color: #202020;
+    border: none; /* Quitamos el borde negro grueso para que luzca el color del tipo */
+}
+
+.contenedor-carta:hover .carta {
+    transform: rotateY(180deg);
+}
+
+.frente, .reverso {
+    backface-visibility: hidden;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between !important;
+    align-items: center;
+    padding: 20px;
+    width: 100%; /* Aseguramos que ocupe todo el ancho */
+}
+
+.reverso {
+    transform: rotateY(-180deg);
+}
+
+/* --- Imágenes --- */
+.contenedor-imagen { position: relative; }
+
+.imagen-pokemon {
+    width: 140px;
+    z-index: 10;
+    image-rendering: pixelated;
+    position: relative;
+    top: 10px;
+}
+
+.fondo-pokeball {
+    width: 130px;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    opacity: 0.4;
+    animation: girar 5s linear infinite;
+}
+
+@keyframes girar {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* --- Textos (Usando Jersey 25 para legibilidad) --- */
+.numero-pokemon {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 8px 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-family: "Jersey 25", sans-serif;
+    color: #202020;
+}
+
+.nombre-pokemon {
+    font-family: "Jersey 25", sans-serif;
+    font-size: 1.8em;
+    font-weight: 400;
+    color: #202020;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
+    white-space: nowrap;
+}
+
+.estadisticas {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    font-family: "Jersey 25", sans-serif;
+    font-size: 1.4em;
+    color: #202020;
+}
+
+.tipos-pokemon {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.fondo-tipo-pokemon img {
+    width: 38px;
+    height: 38px;
+    filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.2));
 }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 850px) {
-
-    .contenedor-equipo {
-        padding: 30px 25px 45px;
-    }
-
-    .vista-entrenador-pokemon {
-        height: 250px;
-    }
-
-    .entrenador-equipo {
-        height: 165px;
-    }
-
-    .grid-equipo {
-        grid-template-columns: repeat(2, 210px);
-        justify-content: center;
-    }
+    .grid-equipo { grid-template-columns: repeat(2, 210px); }
 }
 
 @media (max-width: 520px) {
-
-    .contenedor-equipo {
-        padding: 25px 18px 40px;
-    }
-
-    .vista-entrenador-pokemon {
-        height: 230px;
-    }
-
-    .entrenador-equipo {
-        height: 145px;
-    }
-
-    .pokemon-alrededor {
-        width: 52px;
-        height: 52px;
-    }
-
-    .grid-equipo {
-        grid-template-columns: 210px;
-        justify-content: center;
-    }
-
-    .slot-pokemon {
-        min-height: 230px;
-    }
-
-    .zona-lista-equipo h1 {
-        font-size: 14px;
-    }
+    .grid-equipo { grid-template-columns: 210px; }
 }

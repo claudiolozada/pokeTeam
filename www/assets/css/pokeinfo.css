@@ -275,7 +275,7 @@ body::after {
 }
 
 /* ----------------------------- */
-/* PESTAÑAS */
+/* PESTAÑAS Y BOTÓN AGREGAR */
 /* ----------------------------- */
 
 .tabs {
@@ -293,7 +293,9 @@ body::after {
     z-index: 2;
 }
 
-.tabs span {
+/* Aquí se añade .addpoke para que herede el estilo de los botones de pestañas */
+.tabs span, 
+.addpoke {
     min-width: 150px;
 
     padding: 12px 18px;
@@ -302,6 +304,7 @@ body::after {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 1.25em;
+    font-family: inherit; /* Asegura que herede la fuente del body */
 
     color: #202020;
     background-color: #ffffff;
@@ -320,7 +323,9 @@ body::after {
         box-shadow 0.2s ease;
 }
 
-.tabs span:hover {
+/* Hover compartido */
+.tabs span:hover,
+.addpoke:hover {
     transform: translateY(-4px) scale(1.05);
     background-color: var(--color-tipo-actual);
     color: #ffffff;
@@ -418,8 +423,7 @@ body::after {
     margin: 20px 0;
 }
 
-/* Contenedor del tipo.
-   Ya no tiene círculo de color porque tus PNG ya vienen redondos y listos. */
+/* Contenedor del tipo. */
 .poke__type__bg {
     width: 58px;
     height: 58px;
@@ -433,8 +437,7 @@ body::after {
     border-radius: 0;
 }
 
-/* Imagen del tipo en el resumen.
-   Estas imágenes vienen de assets/img/tipos. */
+/* Imagen del tipo en el resumen. */
 .poke__type__bg img {
     width: 54px;
     height: 54px;
@@ -590,8 +593,6 @@ meter::-webkit-meter-even-less-good-value {
     font-size: 1.1em;
 }
 
-/* Imágenes de tipos dentro de Inmune a / Fuerte contra.
-   Ya no tienen círculo de color porque tus PNG ya están preparados. */
 .statIconHolder img,
 .imagen-tipo-lista {
     width: 52px;
@@ -835,7 +836,8 @@ meter::-webkit-meter-even-less-good-value {
         gap: 12px;
     }
 
-    .tabs span {
+    .tabs span,
+    .addpoke {
         width: 100%;
         min-width: auto;
     }
