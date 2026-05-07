@@ -18,7 +18,7 @@ const colores = {
 // Mapeo de nombres de tipos a archivos de imagen locales
 const imagenesTipos = {
     normal: "normal.png", fire: "fuego.png", water: "agua.png", grass: "planta.png",
-    electric: "electrico.png", ice: "hielo.png", lucha: "lucha.png", poison: "veneno.png",
+    electric: "electrico.png", ice: "hielo.png", fighting: "lucha.png", poison: "veneno.png",
     ground: "tierra.png", flying: "volador.png", psychic: "psiquico.png", bug: "bicho.png",
     rock: "roca.png", ghost: "fantasma.png", dragon: "dragon.png", dark: "siniestro.png",
     steel: "acero.png", fairy: "hada.png",
