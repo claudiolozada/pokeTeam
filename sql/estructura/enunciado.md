@@ -32,7 +32,7 @@ El multiplicador puede tener valores como:
 Aquí se muestra el modelo entidad-relación diseñado para la base de datos de PokeTeam.
 
 <p align="center">
-  <img src="esquema.png" width="75%" alt="Modelo Entidad Relación">
+  <img src="Esquema.png" width="75%" alt="Modelo Entidad Relación">
 </p>
 
 ---
